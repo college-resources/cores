@@ -8,8 +8,8 @@
   "plugins": ["@babel", "import", "react"],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
+    "next",
+    "next/core-web-vitals",
     "prettier"
   ],
   "parser": "@babel/eslint-parser",

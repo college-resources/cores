@@ -9,6 +9,7 @@ import { useRef, useEffect } from 'react'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import { withStyles } from '@material-ui/styles'
+import Image from 'next/image'
 
 const useStyles = makeStyles({
   root: {
@@ -109,11 +110,12 @@ export default function ScrollDialog(props) {
         </DialogContentText>
         {images &&
           images.map((image, index) => (
-            <img
+            <Image
               className={classes.image}
               // eslint-disable-next-line react/no-array-index-key
               key={`image-${index}`}
               src={image.details.url || image.url}
+              alt={"profile image"}
             />
           ))}
       </DialogContent>

@@ -47,7 +47,7 @@ export default function CoursesPage(props) {
   return (
     <Container>
       {currentAuthStatus === authStatus.AUTHENTICATED && (
-        <Link href="/courses/create">
+        <Link href="/courses/create" passHref>
           <Button
             className={classes.button}
             color="primary"
