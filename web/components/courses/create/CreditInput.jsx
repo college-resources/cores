@@ -18,7 +18,7 @@ export default function CreditInput(props) {
         <Box flexGrow={1}>
           <TextField
             InputProps={{
-              readOnly: true
+              readOnly: true,
             }}
             fullWidth
             id="credit-input"

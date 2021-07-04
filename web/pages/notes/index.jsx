@@ -18,22 +18,22 @@ import { getCourses, selectCourses } from 'redux/courseSlice'
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 100,
-    marginTop: 16
+    marginTop: 16,
   },
   title: {
-    fontSize: 14
+    fontSize: 14,
   },
   autocomplete: {
     marginTop: '0.75rem',
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: 'gray'
-      }
+        borderColor: 'gray',
+      },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white
-    }
-  }
+      color: theme.palette.type === 'dark' && theme.palette.common.white,
+    },
+  },
 }))
 
 const notesHandler = (courseId) =>
@@ -58,8 +58,8 @@ const notesHandler = (courseId) =>
     `).then(
       (data) =>
         data.lessonNotes &&
-        data.lessonNotes.sort(dynamicSortMultiple('-date', 'title'))
-    )
+        data.lessonNotes.sort(dynamicSortMultiple('-date', 'title')),
+    ),
   )
 
 export default function NotesPage(props) {
@@ -73,7 +73,7 @@ export default function NotesPage(props) {
     open: false,
     title: '',
     texts: [],
-    image: []
+    image: [],
   })
 
   useEffect(() => {
@@ -144,7 +144,7 @@ export default function NotesPage(props) {
                 onClick={handleClickOpen(
                   note.title,
                   note.hypertexts,
-                  note.images
+                  note.images,
                 )}
               >
                 <CardContent>

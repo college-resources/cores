@@ -4,5 +4,5 @@ function getCookie(name) {
 }
 
 module.exports = {
-  getCookie
+  getCookie,
 }

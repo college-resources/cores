@@ -10,15 +10,15 @@ const useStyles = makeStyles((theme) => ({
   lesson: {
     backgroundColor: theme.palette.type === 'light' ? '#fff' : '#40444b',
     borderRadius: theme.shape.borderRadius,
-    color: theme.palette.text.normal
+    color: theme.palette.text.normal,
   },
   paper: {
     color: theme.palette.text.secondary,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   root: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }))
 
 export default function CoursesModule() {

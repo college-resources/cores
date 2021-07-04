@@ -21,31 +21,31 @@ import { useSelector } from 'react-redux'
 const useStyles = makeStyles((theme) => ({
   avatar: {
     height: '32px',
-    width: '32px'
+    width: '32px',
   },
   button: {
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   menuButton: {
     [theme.breakpoints.up('xl')]: {
-      display: 'none'
+      display: 'none',
     },
     color: theme.palette.common.white,
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   navbar: {
     backgroundColor: theme.palette.primary.dark,
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
   },
   swipebar: {
     [theme.breakpoints.up('xl')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   title: {
     color: theme.palette.common.white,
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }))
 
 const iOS = process.browser && /iPad|iPhone|iPod/u.test(navigator.userAgent)

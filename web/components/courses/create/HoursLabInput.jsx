@@ -18,7 +18,7 @@ export default function HoursLabInput(props) {
         <Box flexGrow={1}>
           <TextField
             InputProps={{
-              readOnly: true
+              readOnly: true,
             }}
             fullWidth
             id="hours-lab-input"

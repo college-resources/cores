@@ -76,15 +76,15 @@ class MyApp extends App {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user
+  user: state.user,
 })
 
 const mapDispatchToProps = {
   session,
   setUser,
-  setVersion
+  setVersion,
 }
 
 export default wrapper.withRedux(
-  withRouter(connect(mapStateToProps, mapDispatchToProps)(MyApp))
+  withRouter(connect(mapStateToProps, mapDispatchToProps)(MyApp)),
 )

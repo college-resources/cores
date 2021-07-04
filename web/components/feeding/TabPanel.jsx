@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 TabPanel.propTypes = {
   children: PropTypes.node.isRequired,
   index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired
+  value: PropTypes.number.isRequired,
 }
 
 export default function TabPanel(props) {

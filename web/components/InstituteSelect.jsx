@@ -6,7 +6,7 @@ import {
   getInstitutes,
   selectInstituteIndex,
   selectInstitutes,
-  updateInstituteIndex
+  updateInstituteIndex,
 } from 'redux/instituteSlice'
 import { useEffect } from 'react'
 import Box from '@material-ui/core/Box'
@@ -15,18 +15,18 @@ import Hidden from '@material-ui/core/Hidden'
 const useStyles = makeStyles((theme) => ({
   textField: {
     [theme.breakpoints.down('sm')]: {
-      marginBottom: 0
+      marginBottom: 0,
     },
     flexGrow: 1,
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: 'gray'
-      }
+        borderColor: 'gray',
+      },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white
-    }
-  }
+      color: theme.palette.type === 'dark' && theme.palette.common.white,
+    },
+  },
 }))
 
 export default function InstituteSelect() {

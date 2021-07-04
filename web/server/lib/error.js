@@ -21,11 +21,11 @@ const handleError = (err, res) => {
     status: 'error',
     statusCode,
     message: errorDescription || message,
-    error: error || null
+    error: error || null,
   })
 }
 
 module.exports = {
   ErrorHandler,
-  handleError
+  handleError,
 }

@@ -14,15 +14,15 @@ const useStyles = makeStyles((theme) => ({
     height: '5rem',
     margin: 'auto',
     marginBottom: '1rem',
-    width: '5rem'
+    width: '5rem',
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center'
+    textAlign: 'center',
   },
   root: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }))
 
 export default function ProfilePage(props) {
@@ -46,7 +46,7 @@ export default function ProfilePage(props) {
               />
               <TextField
                 InputProps={{
-                  readOnly: true
+                  readOnly: true,
                 }}
                 defaultValue={user.given_name}
                 fullWidth
@@ -56,7 +56,7 @@ export default function ProfilePage(props) {
               />
               <TextField
                 InputProps={{
-                  readOnly: true
+                  readOnly: true,
                 }}
                 defaultValue={user.family_name}
                 fullWidth
@@ -73,7 +73,7 @@ export default function ProfilePage(props) {
               </Box>
               <TextField
                 InputProps={{
-                  readOnly: true
+                  readOnly: true,
                 }}
                 defaultValue={user.email}
                 fullWidth

@@ -6,7 +6,7 @@ import { clearPreferences } from './preferencesSlice'
 export const status = {
   AUTHENTICATED: 'AUTHENTICATED',
   UNAUTHENTICATED: 'UNAUTHENTICATED',
-  FAILURE: 'FAILURE'
+  FAILURE: 'FAILURE',
 }
 
 const slice = createSlice({
@@ -14,22 +14,22 @@ const slice = createSlice({
   initialState: {
     user: null,
     error: null,
-    status: status.LOGIN_SUCCESS
+    status: status.LOGIN_SUCCESS,
   },
   reducers: {
     updateUser: (state, action) => ({
       ...state,
-      user: action.payload
+      user: action.payload,
     }),
     updateError: (state, action) => ({
       ...state,
-      error: action.payload
+      error: action.payload,
     }),
     updateStatus: (state, action) => ({
       ...state,
-      status: action.payload
-    })
-  }
+      status: action.payload,
+    }),
+  },
 })
 
 export default slice.reducer
@@ -70,13 +70,13 @@ export function login(email, password) {
     fetch('/auth/login', {
       body: JSON.stringify({
         email,
-        password
+        password,
       }),
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      method: 'POST'
+      method: 'POST',
     })
       .then((res) => handleAuthResponse(slice, dispatch, res))
       .then((ok) => ok && Router.push('/'))
@@ -98,13 +98,13 @@ export function register(email, givenName, familyName, password) {
         email,
         family_name: familyName,
         given_name: givenName,
-        password
+        password,
       }),
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      method: 'POST'
+      method: 'POST',
     })
       .then((res) => handleAuthResponse(slice, dispatch, res))
       .then((ok) => ok && Router.push('/'))

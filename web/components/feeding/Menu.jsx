@@ -17,39 +17,39 @@ import { makeStyles } from '@material-ui/core/styles'
 function a11yProps(index) {
   return {
     'aria-controls': `day-tabpanel-${index}`,
-    id: `day-tab-${index}`
+    id: `day-tab-${index}`,
   }
 }
 
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   dense: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   formControl: {
     marginBottom: '8px',
-    marginTop: '8px'
+    marginTop: '8px',
   },
   root: {
     backgroundColor: theme.palette.background.paper,
     flexGrow: 1,
     marginBottom: '8px',
-    marginTop: '8px'
+    marginTop: '8px',
   },
   textField: {
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: 'gray'
-      }
+        borderColor: 'gray',
+      },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white
+      color: theme.palette.type === 'dark' && theme.palette.common.white,
     },
-    width: '100%'
-  }
+    width: '100%',
+  },
 }))
 
 export default function Menu() {

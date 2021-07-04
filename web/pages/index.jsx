@@ -9,22 +9,22 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
   lesson: {
     '& hr': {
-      margin: theme.spacing(0, 0.5)
+      margin: theme.spacing(0, 0.5),
     },
     '& svg': {
-      margin: theme.spacing(1.5)
+      margin: theme.spacing(1.5),
     },
     backgroundColor: '#40444b',
-    borderRadius: theme.shape.borderRadius
+    borderRadius: theme.shape.borderRadius,
   },
   paper: {
     color: theme.palette.text.secondary,
     padding: theme.spacing(2),
-    textAlign: 'center'
+    textAlign: 'center',
   },
   root: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }))
 
 export default function Homepage(props) {

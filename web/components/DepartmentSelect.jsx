@@ -9,25 +9,25 @@ import {
   getDepartments,
   selectDepartmentIndex,
   selectDepartments,
-  updateDepartmentIndex
+  updateDepartmentIndex,
 } from 'redux/departmentSlice'
 import isEmpty from 'lodash/isEmpty'
 
 const useStyles = makeStyles((theme) => ({
   textField: {
     [theme.breakpoints.down('sm')]: {
-      marginTop: 0
+      marginTop: 0,
     },
     flexGrow: 1,
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: 'gray'
-      }
+        borderColor: 'gray',
+      },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white
-    }
-  }
+      color: theme.palette.type === 'dark' && theme.palette.common.white,
+    },
+  },
 }))
 
 export default function DepartmentSelect() {

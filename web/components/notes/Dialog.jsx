@@ -15,28 +15,28 @@ const useStyles = makeStyles({
     '& .MuiDialog-paperWidthLg.MuiDialog-paperScrollBody': {
       margin: 0,
       maxWidth: '1280px',
-      width: 'calc(100% - 32px)'
-    }
+      width: 'calc(100% - 32px)',
+    },
   },
   content: {
-    padding: '8px 16px'
+    padding: '8px 16px',
   },
   image: {
-    maxWidth: '100%'
-  }
+    maxWidth: '100%',
+  },
 })
 
 const styles = (theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500]
-  }
+    color: theme.palette.grey[500],
+  },
 })
 
 const DialogTitle = withStyles(styles)((props) => {

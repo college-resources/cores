@@ -23,20 +23,20 @@ const departmentHandler = () =>
       name
     }
   }
-`).then((data) => data.departments.sort(dynamicSort('name')))
+`).then((data) => data.departments.sort(dynamicSort('name'))),
   )
 
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   dense: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   menu: {
-    width: 200
-  }
+    width: 200,
+  },
 }))
 
 function formDefaults() {
@@ -48,7 +48,7 @@ function formDefaults() {
     lectureHours: 0,
     labHours: 0,
     credit: 0,
-    type: ''
+    type: '',
   }
 }
 
@@ -101,7 +101,7 @@ export default function CreatePage(props) {
   const handleChange = (name) => (event) => {
     setValues({
       ...values,
-      [name]: event.target ? event.target.value : event
+      [name]: event.target ? event.target.value : event,
     })
   }
 

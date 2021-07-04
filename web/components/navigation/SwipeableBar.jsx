@@ -6,8 +6,8 @@ const useStyles = makeStyles({
     width: 240,
     height: '100%',
     display: 'flex',
-    flexDirection: 'column'
-  }
+    flexDirection: 'column',
+  },
 })
 
 export default function SwipeableBar(props) {

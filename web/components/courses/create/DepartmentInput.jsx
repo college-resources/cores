@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   menu: {
-    width: 200
-  }
+    width: 200,
+  },
 })
 
 export default function DepartmentInput(props) {
@@ -16,8 +16,8 @@ export default function DepartmentInput(props) {
     <TextField
       SelectProps={{
         MenuProps: {
-          className: classes.menu
-        }
+          className: classes.menu,
+        },
       }}
       fullWidth
       id="department-input"

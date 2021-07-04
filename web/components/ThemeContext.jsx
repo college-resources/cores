@@ -1,6 +1,6 @@
 import {
   ThemeProvider as MuiThemeProvider,
-  createMuiTheme
+  createMuiTheme,
 } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import {
@@ -9,7 +9,7 @@ import {
   useEffect,
   useMemo,
   useContext,
-  useCallback
+  useCallback,
 } from 'react'
 import { getCookie } from 'scripts/helpers'
 import { indigo } from '@material-ui/core/colors'
@@ -18,7 +18,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 export const themeColor = indigo['800']
 
 const themeInitialOptions = {
-  paletteColors: {}
+  paletteColors: {},
 }
 
 export const DispatchContext = createContext(() => {
@@ -38,7 +38,7 @@ export function ThemeProvider(props) {
         return {
           ...state,
           paletteColors: action.payload.paletteColors || state.paletteColors,
-          paletteType: action.payload.paletteType || state.paletteType
+          paletteType: action.payload.paletteType || state.paletteType,
         }
       default:
         throw new Error(`Unrecognized type ${action.type}`)
@@ -57,9 +57,9 @@ export function ThemeProvider(props) {
       dispatch({
         payload: {
           paletteColors: nextPaletteColors,
-          paletteType: nextPaletteType
+          paletteType: nextPaletteType,
         },
-        type: 'CHANGE'
+        type: 'CHANGE',
       })
     }
   }, [])
@@ -72,29 +72,29 @@ export function ThemeProvider(props) {
   const theme = useMemo(() => {
     const nextTheme = createMuiTheme({
       nprogress: {
-        color: paletteType === 'light' ? '#000' : '#fff'
+        color: paletteType === 'light' ? '#000' : '#fff',
       },
       palette: {
         background: {
           default: paletteType === 'light' ? '#fff' : '#2f3136',
-          tertiary: paletteType === 'light' ? '#fff' : '#202225'
+          tertiary: paletteType === 'light' ? '#fff' : '#202225',
         },
         primary: {
           dark: indigo[800],
           level3: indigo[500],
           light: indigo[600],
-          main: indigo[700]
+          main: indigo[700],
         },
         secondary: {
-          main: indigo[700]
+          main: indigo[700],
         },
         text: {
           normal: paletteType === 'light' ? 'black' : '#dcddde',
           permanentLight: '#dcddde',
-          reverse: paletteType === 'light' ? '#dcddde' : 'black'
+          reverse: paletteType === 'light' ? '#dcddde' : 'black',
         },
         type: paletteType,
-        ...paletteColors
+        ...paletteColors,
       },
       typography: {
         fontFamily: [
@@ -107,9 +107,9 @@ export function ThemeProvider(props) {
           'sans-serif',
           '"Apple Color Emoji"',
           '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"'
-        ].join(',')
-      }
+          '"Segoe UI Symbol"',
+        ].join(','),
+      },
     })
 
     if (paletteType === 'dark') nextTheme.palette.background.paper = '#36393f'
@@ -140,7 +140,7 @@ export function ThemeProvider(props) {
 }
 
 ThemeProvider.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
 
 /**
@@ -150,6 +150,6 @@ export function useChangeTheme() {
   const dispatch = useContext(DispatchContext)
   return useCallback(
     (options) => dispatch({ payload: options, type: 'CHANGE' }),
-    [dispatch]
+    [dispatch],
   )
 }

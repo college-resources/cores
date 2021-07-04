@@ -15,33 +15,33 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.type === 'dark' && theme.palette.text.permanentLight,
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   form: {
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: theme.palette.text.permanentLight
-      }
+        borderColor: theme.palette.text.permanentLight,
+      },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white
+      color: theme.palette.type === 'dark' && theme.palette.common.white,
     },
     marginTop: theme.spacing(3),
     // Fix IE 11 issue
-    width: '100%'
+    width: '100%',
   },
   paper: {
     alignItems: 'center',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   submit: {
     '&:hover': {
-      backgroundColor: theme.palette.primary.dark
+      backgroundColor: theme.palette.primary.dark,
     },
     backgroundColor: theme.palette.primary.light,
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }))
 
 export default function RegisterPage(props) {

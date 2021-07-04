@@ -15,11 +15,11 @@ import { lightBlue } from '@material-ui/core/colors'
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   root: {
-    borderBottom: 0
-  }
+    borderBottom: 0,
+  },
 }))(TableCell)
 
 const StyledTableRow = withStyles((theme) => ({
@@ -28,28 +28,28 @@ const StyledTableRow = withStyles((theme) => ({
       backgroundColor:
         theme.palette.type === 'light'
           ? lightBlue[50]
-          : theme.palette.primary.light
+          : theme.palette.primary.light,
     },
     '&:nth-of-type(odd)': {
       backgroundColor:
         theme.palette.type === 'light'
           ? lightBlue[100]
-          : theme.palette.primary.level3
-    }
-  }
+          : theme.palette.primary.level3,
+    },
+  },
 }))(TableRow)
 
 const useStyles = makeStyles((theme) => ({
   icon: {
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   root: {
-    width: '100%'
+    width: '100%',
   },
   summary: {
     backgroundColor: theme.palette.primary.dark,
-    color: theme.palette.common.white
-  }
+    color: theme.palette.common.white,
+  },
 }))
 
 export default function Semester(props) {
@@ -108,7 +108,7 @@ export default function Semester(props) {
                   style={{
                     borderBottom: '1px solid rgba(224, 224, 224, 1)',
                     minWidth: '16px',
-                    width: '32px'
+                    width: '32px',
                   }}
                 >
                   Ώρες

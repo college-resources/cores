@@ -6,12 +6,12 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     backgroundColor: theme.palette.background.tertiary,
     [theme.breakpoints.down('lg')]: {
-      display: 'none'
+      display: 'none',
     },
-    width: 240
+    width: 240,
   },
   // Necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar
+  toolbar: theme.mixins.toolbar,
 }))
 
 export default function PermanentBar() {
@@ -20,7 +20,7 @@ export default function PermanentBar() {
   return (
     <Drawer
       classes={{
-        paper: classes.drawerPaper
+        paper: classes.drawerPaper,
       }}
       variant="permanent"
     >

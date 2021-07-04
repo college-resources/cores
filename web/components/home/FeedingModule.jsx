@@ -15,7 +15,7 @@ import ButtonLink from 'components/ButtonLink'
 
 const findLastAndNextMeal = (feeding) => {
   const currentDayInWeeks = feeding.weeks.map(
-    (week) => week.days[(new Date().getDay() + 6) % 7]
+    (week) => week.days[(new Date().getDay() + 6) % 7],
   )
   return currentDayInWeeks.map((day) => {
     let isLastOpen = false
@@ -56,7 +56,7 @@ const findCurrentWeek = (feeding) => {
   const startsFrom = new Date(feeding.startsFrom)
   const differenceBetweenStartDateAndNowInMs = Date.now() - startsFrom.getTime()
   const daysFromStart = Math.floor(
-    differenceBetweenStartDateAndNowInMs / msInADay
+    differenceBetweenStartDateAndNowInMs / msInADay,
   )
   const daysFromReset = daysFromStart % (weeksLength * 7)
 
@@ -65,15 +65,15 @@ const findCurrentWeek = (feeding) => {
 
 const useStyles = makeStyles((theme) => ({
   green: {
-    color: green['600']
+    color: green['600'],
   },
   paper: {
     color: theme.palette.text.secondary,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   red: {
-    color: theme.palette.error.main
-  }
+    color: theme.palette.error.main,
+  },
 }))
 
 function FavoriteFeeding({ favoriteFeeding }) {
@@ -105,7 +105,7 @@ function FavoriteFeeding({ favoriteFeeding }) {
           <b>
             {meals[currentWeekIndex].isLastOpen
               ? `Open until ${formatMsTo24h(
-                  meals[currentWeekIndex].lastMeal.timeEnd
+                  meals[currentWeekIndex].lastMeal.timeEnd,
                 )}`
               : 'Closed'}
           </b>

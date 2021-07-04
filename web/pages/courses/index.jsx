@@ -16,8 +16,8 @@ import Semester from 'components/courses/Semester'
 const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(2),
-    width: '100%'
-  }
+    width: '100%',
+  },
 }))
 
 export default function CoursesPage(props) {

@@ -10,15 +10,15 @@ const slice = createSlice({
   initialState: {},
   reducers: {
     updatePreferences: (state, action) => ({
-      ...action.payload
+      ...action.payload,
     }),
     updatePreference: (state, action) => ({
       ...state,
-      [action.payload.preference]: action.payload.value
+      [action.payload.preference]: action.payload.value,
     }),
     /* eslint-disable-next-line no-unused-vars */
-    clearPreferences: (state, action) => ({})
-  }
+    clearPreferences: (state, action) => ({}),
+  },
 })
 
 export default slice.reducer
@@ -56,7 +56,7 @@ export function getPreferences() {
             }
           }
         }
-      `).then((data) => data.user.preferences)
+      `).then((data) => data.user.preferences),
     ).then((gqlData) => {
       if (gqlData) {
         dispatch(slice.actions.updatePreferences(gqlData))

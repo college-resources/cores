@@ -12,13 +12,13 @@ import {
   getFeeding,
   selectFeedingIndex,
   selectFeedings,
-  updateFeeding
+  updateFeeding,
 } from 'redux/feedingSlice'
 import {
   getPreferences,
   PREFERENCE_FEEDING,
   selectPreferences,
-  updatePreference
+  updatePreference,
 } from 'redux/preferencesSlice'
 import { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
@@ -28,22 +28,22 @@ import isEmpty from 'lodash/isEmpty'
 
 const useStyles = makeStyles((theme) => ({
   checked: {
-    color: pink['A400']
+    color: pink['A400'],
   },
   container: {
-    display: 'flex'
+    display: 'flex',
   },
   textField: {
     flexGrow: 1,
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: 'gray'
-      }
+        borderColor: 'gray',
+      },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white
-    }
-  }
+      color: theme.palette.type === 'dark' && theme.palette.common.white,
+    },
+  },
 }))
 
 export default function Feeding() {
@@ -88,8 +88,8 @@ export default function Feeding() {
       dispatch(
         updatePreference({
           preference: PREFERENCE_FEEDING,
-          value: isFavorite() ? null : feedings[selectedFeedingIndex]
-        })
+          value: isFavorite() ? null : feedings[selectedFeedingIndex],
+        }),
       )
     } else {
       alert('Choose a feeding first') // TODO: Beautify - Translate

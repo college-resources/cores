@@ -12,9 +12,9 @@ const slice = createSlice({
   reducers: {
     updateCourses: (state, action) => ({
       ...defaults,
-      courses: action.payload
-    })
-  }
+      courses: action.payload,
+    }),
+  },
 })
 
 export default slice.reducer
@@ -48,8 +48,8 @@ export function getCourses() {
           }
         }
       `).then((data) =>
-        data.lessons?.sort(dynamicSortMultiple('semester', 'lessonCode'))
-      )
+        data.lessons?.sort(dynamicSortMultiple('semester', 'lessonCode')),
+      ),
     ).then((gqlData) => {
       if (gqlData) {
         dispatch(slice.actions.updateCourses(gqlData))
