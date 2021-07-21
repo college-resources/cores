@@ -152,7 +152,7 @@ export default function RegisterPage(props) {
           >
             Sign Up
           </Button>
-          <Grid container justify="flex-end">
+          <Grid container justifyContent="flex-end">
             <Grid item>
               <StyledLink href="/login">
                 Already have an account? Sign in

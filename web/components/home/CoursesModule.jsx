@@ -16,9 +16,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     padding: theme.spacing(2),
   },
-  root: {
-    flexGrow: 1,
-  },
 }))
 
 export default function CoursesModule() {
@@ -28,7 +25,6 @@ export default function CoursesModule() {
     <Paper className={classes.paper} elevation={3}>
       <Box
         alignItems="center"
-        css={{ height: 20 }}
         display="flex"
         justifyContent="center"
         mb={2.5}

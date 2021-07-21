@@ -36,7 +36,7 @@ export default function ProfilePage(props) {
   return (
     <Container>
       <Box mt={2}>
-        <Grid container justify="center" spacing={3}>
+        <Grid container justifyContent="center" spacing={3}>
           <Grid item md={6} xs={12}>
             <Paper className={classes.paper}>
               <Avatar

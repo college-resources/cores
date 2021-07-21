@@ -87,7 +87,7 @@ function FavoriteFeeding({ favoriteFeeding }) {
       alignItems="flex-start"
       container
       direction="row"
-      justify="space-between"
+      justifyContent="space-between"
       key={favoriteFeeding._id}
     >
       <Box mr={2}>
@@ -130,7 +130,6 @@ export default function FeedingModule() {
     <Paper className={classes.paper} elevation={3}>
       <Box
         alignItems="center"
-        css={{ height: 20 }}
         display="flex"
         justifyContent="center"
         mb={2.5}
@@ -149,7 +148,12 @@ export default function FeedingModule() {
         </Box>
       ) : (
         <Box pt={2}>
-          <Grid alignItems="center" container direction="row" justify="center">
+          <Grid
+            alignItems="center"
+            container
+            direction="row"
+            justifyContent="center"
+          >
             <Button
               href="/feeding"
               component={ButtonLink}
