@@ -51,7 +51,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.11.3-deprecations.1",
     "@material-ui/styles": "^4.11.3-deprecations.1",
-    "@reduxjs/toolkit": "^1.5.1",
+    "@reduxjs/toolkit": "^1.6.1",
     "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.3.0",
@@ -59,11 +59,11 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "markdown-to-jsx": "^7.1.2",
-    "next-redux-wrapper": "^6.0.2",
+    "next-redux-wrapper": "^7.0.2",
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-redux": "^7.2.3",
-    "redux": "^4.0.5"
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.0"
   }
 }
