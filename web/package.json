@@ -14,16 +14,7 @@
     "prettier": "npx prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/college-resources/web.git"
-  },
   "author": "College Resources",
-  "license": "GPL-3.0-only",
-  "bugs": {
-    "url": "https://github.com/college-resources/web/issues"
-  },
-  "homepage": "https://github.com/college-resources/web#readme",
   "dependencies": {
     "@google-cloud/connect-firestore": "^2.0.1",
     "@google-cloud/firestore": "^4.9.8",
@@ -65,5 +56,6 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
     "redux": "^4.1.0"
-  }
+  },
+  "private": true
 }
