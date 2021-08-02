@@ -13,26 +13,8 @@ router.use(bodyParser.json())
 
 router.get(
   '/login',
-  passport.authenticate('auth0', {
-    audience: process.env.AUTH0_AUDIENCE,
-    scope: process.env.AUTH0_SCOPE
-  }),
-  (req, res) => {
-    res.redirect('/')
-  }
-)
-
-router.get(
-  '/login/:connection',
-  (req, res, next) =>
-    passport.authenticate('auth0', {
-      audience: process.env.AUTH0_AUDIENCE,
-      connection: req.params.connection,
-      scope: process.env.AUTH0_SCOPE
-    })(req, res, next),
-  (req, res) => {
-    res.redirect('/')
-  }
+  passport.authenticate('keycloak', { scope: 'openid email profile' }),
+  (req, res) => res.redirect('/')
 )
 
 router.post(
@@ -75,7 +57,10 @@ router.post(
 
 router.post(
   '/login',
-  [check('email').isEmail(), check('password').isLength(8)],
+  [
+    check('email').isEmail(),
+    check('password').isLength(8)
+  ],
   (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -106,9 +91,9 @@ router.post(
   }
 )
 
-router.get('/callback', (req, res, next) => {
+router.get('/callback/keycloak', (req, res, next) => {
   passport.authenticate(
-    'auth0',
+    'keycloak',
     // eslint-disable-next-line no-unused-vars
     (authenticateError, user, info) => {
       if (authenticateError) return next(authenticateError)

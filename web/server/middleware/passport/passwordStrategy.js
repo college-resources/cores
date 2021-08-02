@@ -1,5 +1,7 @@
 const LocalStrategy = require('passport-local')
 
+const keycloak = require('../../services/keycloak')
+
 module.exports = new LocalStrategy(
   {
     passReqToCallback: true,
@@ -8,17 +10,11 @@ module.exports = new LocalStrategy(
   },
   async (req, username, password, done) => {
     try {
-      const userData = await req.auth0.authenticationClient.passwordGrant({
-        audience: process.env.AUTH0_AUDIENCE,
-        password,
-        realm: process.env.AUTH0_REALM,
-        scope: process.env.AUTH0_SCOPE,
-        username
-      })
+      const userData = await keycloak.grant(username, password)
 
       const accessToken = userData.access_token
       const refreshToken = userData.refresh_token
-      let profile = await req.auth0.authenticationClient.getProfile(accessToken)
+      let profile = await keycloak.userInfo(accessToken)
 
       if (profile && profile._json) {
         profile = profile._json
@@ -30,7 +26,7 @@ module.exports = new LocalStrategy(
         refreshToken
       }
 
-      await req.auth0.syncProfileWithApi(info)
+      // TODO Sync profile ?
 
       done(null, info)
     } catch (err) {
