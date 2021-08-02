@@ -1,0 +1,30 @@
+# https://github.com/keycloak/keycloak-containers/blob/master/docker-compose-examples/keycloak-postgres.yml
+
+version: '3'
+
+volumes:
+  cores_keycloak_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - cores_keycloak_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: keycloak
+      KEYCLOAK_PASSWORD: password
+    depends_on:
+      - postgres
