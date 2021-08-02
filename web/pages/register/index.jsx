@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux'
 const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.type === 'dark' && theme.palette.text.permanentLight,
+    color: theme.palette.mode === 'dark' && theme.palette.text.permanentLight,
     margin: theme.spacing(2),
   },
   form: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white,
+      color: theme.palette.mode === 'dark' && theme.palette.common.white,
     },
     marginTop: theme.spacing(3),
     // Fix IE 11 issue

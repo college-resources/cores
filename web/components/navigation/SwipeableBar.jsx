@@ -1,18 +1,7 @@
+import { Box } from '@material-ui/core'
 import SideBarList from './SideBarList'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles({
-  list: {
-    width: 240,
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-})
 
 export default function SwipeableBar(props) {
-  const classes = useStyles()
-
   const toggleDrawer = (open) => (event) => {
     if (
       event &&
@@ -26,13 +15,18 @@ export default function SwipeableBar(props) {
   }
 
   return (
-    <div
-      className={classes.list}
+    <Box
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
       role="presentation"
+      sx={{
+        width: 240,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
     >
       <SideBarList />
-    </div>
+    </Box>
   )
 }

@@ -17,7 +17,7 @@ import { CircularProgress } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.type === 'dark' && theme.palette.text.permanentLight,
+    color: theme.palette.mode === 'dark' && theme.palette.text.permanentLight,
     margin: theme.spacing(2),
   },
   form: {
@@ -27,20 +27,20 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white,
+      color: theme.palette.mode === 'dark' && theme.palette.common.white,
     },
     marginTop: theme.spacing(1),
     // Fixes IE 11 issue
     width: '100%',
   },
   errors: {
-    color: theme.palette.type === 'light' ? red[600] : red[700],
+    color: theme.palette.mode === 'light' ? red[600] : red[700],
   },
   google: {
     margin: theme.spacing(2, 0, 2),
-    backgroundColor: theme.palette.type === 'light' ? red[600] : red[700],
+    backgroundColor: theme.palette.mode === 'light' ? red[600] : red[700],
     '&:hover': {
-      backgroundColor: theme.palette.type === 'light' ? red[800] : red[900],
+      backgroundColor: theme.palette.mode === 'light' ? red[800] : red[900],
     },
   },
   loading: {

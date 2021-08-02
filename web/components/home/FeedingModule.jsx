@@ -9,7 +9,7 @@ import RestaurantIcon from '@material-ui/icons/Restaurant'
 import { Typography } from '@material-ui/core'
 import formatMsTo24h from 'scripts/formatMsTo24h'
 import { green } from '@material-ui/core/colors'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import ButtonLink from 'components/ButtonLink'
 
@@ -63,24 +63,16 @@ const findCurrentWeek = (feeding) => {
   return Math.floor(daysFromReset / 7)
 }
 
-const useStyles = makeStyles((theme) => ({
-  green: {
-    color: green['600'],
-  },
-  paper: {
-    color: theme.palette.text.secondary,
-    padding: theme.spacing(2),
-  },
-  red: {
-    color: theme.palette.error.main,
-  },
-}))
-
 function FavoriteFeeding({ favoriteFeeding }) {
-  const classes = useStyles()
   const meals = findLastAndNextMeal(favoriteFeeding)
   const currentWeekIndex = findCurrentWeek(favoriteFeeding)
   const timeOfNextMeal = meals[currentWeekIndex].nextMeal.timeStart
+
+  const IsOpen = styled(Box)(({ theme }) => ({
+    color: meals[currentWeekIndex].isLastOpen
+      ? green['600']
+      : theme.palette.error.main,
+  }))
 
   return (
     <Grid
@@ -97,11 +89,7 @@ function FavoriteFeeding({ favoriteFeeding }) {
         </p>
       </Box>
       <p>
-        <span
-          className={
-            meals[currentWeekIndex].isLastOpen ? classes.green : classes.red
-          }
-        >
+        <IsOpen component="span">
           <b>
             {meals[currentWeekIndex].isLastOpen
               ? `Open until ${formatMsTo24h(
@@ -109,7 +97,7 @@ function FavoriteFeeding({ favoriteFeeding }) {
                 )}`
               : 'Closed'}
           </b>
-        </span>
+        </IsOpen>
         {' - Next meal '}
         <b>{formatMsTo24h(timeOfNextMeal)}</b>
       </p>
@@ -118,7 +106,6 @@ function FavoriteFeeding({ favoriteFeeding }) {
 }
 
 export default function FeedingModule() {
-  const classes = useStyles()
   const dispatch = useDispatch()
   const { feeding: favoriteFeeding } = useSelector(selectPreferences)
 
@@ -126,8 +113,13 @@ export default function FeedingModule() {
     dispatch(getPreferences())
   }, [])
 
+  const Module = styled(Paper)(({ theme }) => ({
+    color: theme.palette.text.secondary,
+    padding: theme.spacing(2),
+  }))
+
   return (
-    <Paper className={classes.paper} elevation={3}>
+    <Module elevation={3}>
       <Box
         alignItems="center"
         display="flex"
@@ -165,6 +157,6 @@ export default function FeedingModule() {
           </Grid>
         </Box>
       )}
-    </Paper>
+    </Module>
   )
 }

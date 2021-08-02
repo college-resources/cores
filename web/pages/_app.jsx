@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Head from 'next/head'
 import NavBar from 'components/navigation/NavBar'
-import { StylesProvider } from '@material-ui/core/styles'
+import { StyledEngineProvider } from '@material-ui/core/styles'
 import { ThemeProvider } from 'components/ThemeContext'
 import { withRouter } from 'next/router'
 
@@ -59,7 +59,7 @@ class MyApp extends App {
           />
           <title>{this.state.title} | College Resources</title>
         </Head>
-        <StylesProvider injectFirst>
+        <StyledEngineProvider injectFirst>
           <ThemeProvider>
             <CssBaseline />
             <Provider store={store}>
@@ -69,7 +69,7 @@ class MyApp extends App {
               </Box>
             </Provider>
           </ThemeProvider>
-        </StylesProvider>
+        </StyledEngineProvider>
       </>
     )
   }

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white,
+      color: theme.palette.mode === 'dark' && theme.palette.common.white,
     },
   },
 }))

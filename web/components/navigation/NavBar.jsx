@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { status as authStatus, selectStatus, selectUser } from 'redux/authSlice'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import AppBar from '@material-ui/core/AppBar'
 import Avatar from '@material-ui/core/Avatar'
@@ -18,40 +18,9 @@ import Typography from '@material-ui/core/Typography'
 import { useChangeTheme } from 'components/ThemeContext'
 import { useSelector } from 'react-redux'
 
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    height: '32px',
-    width: '32px',
-  },
-  button: {
-    color: theme.palette.common.white,
-  },
-  menuButton: {
-    [theme.breakpoints.up('xl')]: {
-      display: 'none',
-    },
-    color: theme.palette.common.white,
-    marginRight: theme.spacing(2),
-  },
-  navbar: {
-    backgroundColor: theme.palette.primary.dark,
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  swipebar: {
-    [theme.breakpoints.up('xl')]: {
-      display: 'none',
-    },
-  },
-  title: {
-    color: theme.palette.common.white,
-    flexGrow: 1,
-  },
-}))
-
 const iOS = process.browser && /iPad|iPhone|iPod/u.test(navigator.userAgent)
 
 export default function NavBar(props) {
-  const classes = useStyles()
   const [drawerOpen, setDrawerOpen] = useState(false)
   const { title } = props
   const user = useSelector(selectUser)
@@ -59,10 +28,10 @@ export default function NavBar(props) {
 
   const theme = useTheme()
   const changeTheme = useChangeTheme()
-  function handleTogglePaletteType() {
-    const paletteType = theme.palette.type === 'light' ? 'dark' : 'light'
+  function handleTogglePaletteMode() {
+    const paletteMode = theme.palette.mode === 'light' ? 'dark' : 'light'
 
-    changeTheme({ paletteType })
+    changeTheme({ paletteMode })
   }
 
   const toggleDrawer = (open) => (event) => {
@@ -79,32 +48,50 @@ export default function NavBar(props) {
 
   return (
     <>
-      <AppBar className={classes.navbar}>
+      <AppBar
+        sx={{
+          backgroundColor: theme.palette.primary.dark,
+          zIndex: theme.zIndex.drawer + 1,
+        }}
+      >
         <Toolbar>
           <IconButton
             aria-label="menu"
-            className={classes.menuButton}
             color="inherit"
             edge="start"
             onClick={toggleDrawer(true)}
+            sx={{
+              [theme.breakpoints.up('xl')]: {
+                display: 'none',
+              },
+              color: theme.palette.common.white,
+              marginRight: theme.spacing(2),
+            }}
           >
             <MenuIcon />
           </IconButton>
           <SwipeableDrawer
-            className={classes.swipebar}
             disableBackdropTransition={!iOS}
             disableDiscovery={iOS}
             onClose={toggleDrawer(false)}
             onOpen={toggleDrawer(true)}
             open={drawerOpen}
+            sx={{
+              [theme.breakpoints.up('xl')]: {
+                display: 'none',
+              },
+            }}
           >
             <SwipeableBar setDrawerOpen={setDrawerOpen} />
           </SwipeableDrawer>
-          <Typography className={classes.title} variant="h6">
+          <Typography
+            variant="h6"
+            sx={{ color: theme.palette.common.white, flexGrow: 1 }}
+          >
             {title}
           </Typography>
-          <IconButton color="inherit" onClick={handleTogglePaletteType}>
-            {theme.palette.type === 'light' ? (
+          <IconButton color="inherit" onClick={handleTogglePaletteMode}>
+            {theme.palette.mode === 'light' ? (
               <Brightness4Icon />
             ) : (
               <Brightness7Icon />
@@ -122,19 +109,19 @@ export default function NavBar(props) {
               {user.picture ? (
                 <Avatar
                   alt="account picture"
-                  className={classes.avatar}
                   src={user.picture}
+                  sx={{ height: '32px', width: '32px' }}
                 />
               ) : (
-                <AccountCircle className={classes.avatar} />
+                <AccountCircle sx={{ height: '32px', width: '32px' }} />
               )}
             </IconButton>
           ) : (
             <Button
-              className={classes.button}
               color="inherit"
               component={ButtonLink}
               href="/login"
+              sx={{ color: theme.palette.common.white }}
             >
               Login
             </Button>

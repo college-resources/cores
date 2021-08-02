@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   link: {
-    color: theme.palette.type === 'dark' && '#00b0f4',
+    color: theme.palette.mode === 'dark' && '#00b0f4',
     textDecoration: 'none',
     cursor: 'pointer',
     '&:hover': {

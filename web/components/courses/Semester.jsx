@@ -26,13 +26,13 @@ const StyledTableRow = withStyles((theme) => ({
   root: {
     '&:nth-of-type(even)': {
       backgroundColor:
-        theme.palette.type === 'light'
+        theme.palette.mode === 'light'
           ? lightBlue[50]
           : theme.palette.primary.light,
     },
     '&:nth-of-type(odd)': {
       backgroundColor:
-        theme.palette.type === 'light'
+        theme.palette.mode === 'light'
           ? lightBlue[100]
           : theme.palette.primary.level3,
     },

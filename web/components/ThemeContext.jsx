@@ -1,6 +1,7 @@
 import {
   ThemeProvider as MuiThemeProvider,
-  createMuiTheme,
+  createTheme as createLegacyModeTheme,
+  unstable_createMuiStrictModeTheme as createStrictModeTheme,
 } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 import {
@@ -29,6 +30,13 @@ if (process.env.NODE_ENV !== 'production') {
   DispatchContext.displayName = 'ThemeDispatchContext'
 }
 
+let createTheme;
+if (process.env.REACT_STRICT_MODE) {
+  createTheme = createStrictModeTheme;
+} else {
+  createTheme = createLegacyModeTheme;
+}
+
 export function ThemeProvider(props) {
   const { children } = props
 
@@ -38,7 +46,7 @@ export function ThemeProvider(props) {
         return {
           ...state,
           paletteColors: action.payload.paletteColors || state.paletteColors,
-          paletteType: action.payload.paletteType || state.paletteType,
+          paletteMode: action.payload.paletteMode || state.paletteMode,
         }
       default:
         throw new Error(`Unrecognized type ${action.type}`)
@@ -46,38 +54,33 @@ export function ThemeProvider(props) {
   }, themeInitialOptions)
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
-  const preferredType = prefersDarkMode ? 'dark' : 'light'
-  const { paletteColors, paletteType = preferredType } = themeOptions
+  const preferredMode = prefersDarkMode ? 'dark' : 'light'
+  const { paletteColors, paletteMode = preferredMode } = themeOptions
 
   useEffect(() => {
     if (process.browser) {
       const nextPaletteColors = JSON.parse(getCookie('paletteColors') || 'null')
-      const nextPaletteType = getCookie('paletteType')
+      const nextPaletteMode = getCookie('paletteMode') || preferredMode;
 
       dispatch({
+        type: 'CHANGE',
         payload: {
           paletteColors: nextPaletteColors,
-          paletteType: nextPaletteType,
+          paletteMode: nextPaletteMode,
         },
-        type: 'CHANGE',
       })
     }
-  }, [])
-
-  // Persist paletteType
-  useEffect(() => {
-    document.cookie = `paletteType=${paletteType};path=/;max-age=31536000`
-  }, [paletteType])
+  }, [preferredMode])
 
   const theme = useMemo(() => {
-    const nextTheme = createMuiTheme({
+    const nextTheme = createTheme({
       nprogress: {
-        color: paletteType === 'light' ? '#000' : '#fff',
+        color: paletteMode === 'light' ? '#000' : '#fff',
       },
       palette: {
         background: {
-          default: paletteType === 'light' ? '#fff' : '#2f3136',
-          tertiary: paletteType === 'light' ? '#fff' : '#202225',
+          default: paletteMode === 'light' ? '#fff' : '#2f3136',
+          tertiary: paletteMode === 'light' ? '#fff' : '#202225',
         },
         primary: {
           dark: indigo[800],
@@ -89,11 +92,11 @@ export function ThemeProvider(props) {
           main: indigo[700],
         },
         text: {
-          normal: paletteType === 'light' ? 'black' : '#dcddde',
+          normal: paletteMode === 'light' ? 'black' : '#dcddde',
           permanentLight: '#dcddde',
-          reverse: paletteType === 'light' ? '#dcddde' : 'black',
+          reverse: paletteMode === 'light' ? '#dcddde' : 'black',
         },
-        type: paletteType,
+        mode: paletteMode,
         ...paletteColors,
       },
       typography: {
@@ -112,21 +115,22 @@ export function ThemeProvider(props) {
       },
     })
 
-    if (paletteType === 'dark') nextTheme.palette.background.paper = '#36393f'
+    if (paletteMode === 'dark') nextTheme.palette.background.paper = '#36393f'
 
     nextTheme.palette.background.level2 =
-      paletteType === 'light' ? nextTheme.palette.grey[100] : '#333'
+      paletteMode === 'light' ? nextTheme.palette.grey[100] : '#333'
 
     nextTheme.palette.background.level1 =
-      paletteType === 'light' ? '#fff' : nextTheme.palette.grey[900]
+      paletteMode === 'light' ? '#fff' : nextTheme.palette.grey[900]
 
     return nextTheme
-  }, [paletteColors, paletteType])
+  }, [paletteColors, paletteMode])
 
   useEffect(() => {
     // Expose the theme as a global variable so people can play with it.
     if (process.browser) {
       window.theme = theme
+      window.createTheme = createTheme
     }
   }, [theme])
 
@@ -140,7 +144,7 @@ export function ThemeProvider(props) {
 }
 
 ThemeProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 }
 
 /**
