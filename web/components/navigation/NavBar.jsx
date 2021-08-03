@@ -30,16 +30,11 @@ export default function NavBar(props) {
   const changeTheme = useChangeTheme()
   function handleTogglePaletteMode() {
     const paletteMode = theme.palette.mode === 'light' ? 'dark' : 'light'
-
     changeTheme({ paletteMode })
   }
 
   const toggleDrawer = (open) => (event) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }
 
@@ -84,18 +79,11 @@ export default function NavBar(props) {
           >
             <SwipeableBar setDrawerOpen={setDrawerOpen} />
           </SwipeableDrawer>
-          <Typography
-            variant="h6"
-            sx={{ color: theme.palette.common.white, flexGrow: 1 }}
-          >
+          <Typography variant="h6" sx={{ color: theme.palette.common.white, flexGrow: 1 }}>
             {title}
           </Typography>
           <IconButton color="inherit" onClick={handleTogglePaletteMode}>
-            {theme.palette.mode === 'light' ? (
-              <Brightness4Icon />
-            ) : (
-              <Brightness7Icon />
-            )}
+            {theme.palette.mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
           </IconButton>
           {currentAuthStatus === authStatus.AUTHENTICATED ? (
             <IconButton

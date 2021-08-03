@@ -3,11 +3,7 @@ import SideBarList from './SideBarList'
 
 export default function SwipeableBar(props) {
   const toggleDrawer = (open) => (event) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
+    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return
     }
 
@@ -24,6 +20,7 @@ export default function SwipeableBar(props) {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        marginTop: '64px',
       }}
     >
       <SideBarList />

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { styled, useTheme } from '@material-ui/core/styles'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -11,49 +11,23 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 import { lightBlue } from '@material-ui/core/colors'
+import { Box } from '@material-ui/core'
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.common.white,
-  },
-  root: {
-    borderBottom: 0,
-  },
-}))(TableCell)
+const StyledTableCell = styled(TableCell)(() => ({
+  borderBottom: 0,
+}))
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(even)': {
-      backgroundColor:
-        theme.palette.mode === 'light'
-          ? lightBlue[50]
-          : theme.palette.primary.light,
-    },
-    '&:nth-of-type(odd)': {
-      backgroundColor:
-        theme.palette.mode === 'light'
-          ? lightBlue[100]
-          : theme.palette.primary.level3,
-    },
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(even)': {
+    backgroundColor: theme.palette.mode === 'light' ? lightBlue[50] : theme.palette.primary.light,
   },
-}))(TableRow)
-
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    color: theme.palette.common.white,
-  },
-  root: {
-    width: '100%',
-  },
-  summary: {
-    backgroundColor: theme.palette.primary.dark,
-    color: theme.palette.common.white,
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.mode === 'light' ? lightBlue[100] : theme.palette.primary.level3,
   },
 }))
 
 export default function Semester(props) {
-  const classes = useStyles()
+  const theme = useTheme()
   const { semester } = props
   const { rows } = props
   const [expanded, setExpanded] = useState(false)
@@ -63,15 +37,15 @@ export default function Semester(props) {
   }
 
   return (
-    <div className={classes.root}>
+    <Box sx={{ width: '100%' }}>
       <Accordion
-        className={classes.summary}
         expanded={expanded === `panel${semester}`}
         onChange={handleChange(`panel${semester}`)}
+        sx={{ backgroundColor: theme.palette.primary.dark, color: theme.palette.common.white }}
       >
         <AccordionSummary
           aria-controls="panel-content"
-          expandIcon={<ExpandMoreIcon className={classes.icon} />}
+          expandIcon={<ExpandMoreIcon sx={{ color: theme.palette.common.white }} />}
           id="panel1d-header"
         >
           <Typography>
@@ -79,36 +53,42 @@ export default function Semester(props) {
             {semester}
           </Typography>
         </AccordionSummary>
-        <AccordionDetails
-          style={{ overflowX: 'auto', overflowY: 'hidden', padding: 0 }}
-        >
+        <AccordionDetails sx={{ overflowX: 'auto', overflowY: 'hidden', padding: 0 }}>
           <Table>
-            <TableHead>
+            <TableHead
+              sx={{
+                backgroundColor: theme.palette.secondary.main,
+              }}
+            >
               <TableRow>
                 <StyledTableCell
                   align="center"
                   rowSpan="2"
-                  style={{ minWidth: '16px', width: '32px' }}
+                  sx={{ minWidth: '16px', width: '32px', color: theme.palette.common.white }}
                 >
                   Κωδ.
                 </StyledTableCell>
-                <StyledTableCell rowSpan="2" style={{ minWidth: '10rem' }}>
+                <StyledTableCell
+                  rowSpan="2"
+                  style={{ minWidth: '10rem', color: theme.palette.common.white }}
+                >
                   Τίτλος
                 </StyledTableCell>
                 <StyledTableCell
                   align="center"
                   rowSpan="2"
-                  style={{ minWidth: '16px', width: '32px' }}
+                  sx={{ minWidth: '16px', width: '32px', color: theme.palette.common.white }}
                 >
                   Είδος
                 </StyledTableCell>
                 <StyledTableCell
                   align="center"
                   colSpan="2"
-                  style={{
+                  sx={{
                     borderBottom: '1px solid rgba(224, 224, 224, 1)',
                     minWidth: '16px',
                     width: '32px',
+                    color: theme.palette.common.white,
                   }}
                 >
                   Ώρες
@@ -116,30 +96,28 @@ export default function Semester(props) {
                 <StyledTableCell
                   align="center"
                   rowSpan="2"
-                  style={{ minWidth: '16px', width: '32px' }}
+                  style={{ minWidth: '16px', width: '32px', color: theme.palette.common.white }}
                 >
                   Π.Μ.
                 </StyledTableCell>
               </TableRow>
               <TableRow>
-                <StyledTableCell align="center">Θ</StyledTableCell>
-                <StyledTableCell align="center">Ε</StyledTableCell>
+                <StyledTableCell align="center" sx={{ color: theme.palette.common.white }}>
+                  Θ
+                </StyledTableCell>
+                <StyledTableCell align="center" sx={{ color: theme.palette.common.white }}>
+                  Ε
+                </StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row) => (
                 <StyledTableRow key={row._id}>
-                  <StyledTableCell align="center">
-                    {row.lessonCode}
-                  </StyledTableCell>
+                  <StyledTableCell align="center">{row.lessonCode}</StyledTableCell>
                   <StyledTableCell align="left">{row.name}</StyledTableCell>
                   <StyledTableCell align="center">{row.type}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.hoursTheory}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.hoursLab}
-                  </StyledTableCell>
+                  <StyledTableCell align="center">{row.hoursTheory}</StyledTableCell>
+                  <StyledTableCell align="center">{row.hoursLab}</StyledTableCell>
                   <StyledTableCell align="center">{row.credit}</StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -147,6 +125,6 @@ export default function Semester(props) {
           </Table>
         </AccordionDetails>
       </Accordion>
-    </div>
+    </Box>
   )
 }

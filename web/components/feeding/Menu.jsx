@@ -12,7 +12,7 @@ import TabPanel from './TabPanel'
 import Tabs from '@material-ui/core/Tabs'
 import Typography from '@material-ui/core/Typography'
 import formatMsTo24h from 'scripts/formatMsTo24h'
-import { makeStyles } from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
 
 function a11yProps(index) {
   return {
@@ -21,39 +21,8 @@ function a11yProps(index) {
   }
 }
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  dense: {
-    marginTop: theme.spacing(2),
-  },
-  formControl: {
-    marginBottom: '8px',
-    marginTop: '8px',
-  },
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    flexGrow: 1,
-    marginBottom: '8px',
-    marginTop: '8px',
-  },
-  textField: {
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: 'gray',
-      },
-    },
-    '& label.Mui-focused': {
-      color: theme.palette.mode === 'dark' && theme.palette.common.white,
-    },
-    width: '100%',
-  },
-}))
-
 export default function Menu() {
-  const classes = useStyles()
+  const theme = useTheme()
   const dispatch = useDispatch()
   const feed = useSelector(selectFeeding)
   const selectedWeekIndex = useSelector(selectWeekIndex)
@@ -69,7 +38,7 @@ export default function Menu() {
 
   return (
     <>
-      <FormControl className={classes.formControl} component="fieldset">
+      <FormControl component="fieldset" sx={{ marginBottom: '8px', marginTop: '8px' }}>
         <RadioGroup
           aria-label="weeks"
           name="weeks"
@@ -88,7 +57,14 @@ export default function Menu() {
           ))}
         </RadioGroup>
       </FormControl>
-      <div className={classes.root}>
+      <Box
+        sx={{
+          backgroundColor: theme.palette.background.paper,
+          flexGrow: 1,
+          marginBottom: '8px',
+          marginTop: '8px',
+        }}
+      >
         <AppBar position="static">
           <Tabs
             aria-label="days"
@@ -143,7 +119,7 @@ export default function Menu() {
             </Box>
           </TabPanel>
         ))}
-      </div>
+      </Box>
     </>
   )
 }

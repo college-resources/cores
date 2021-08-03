@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { status as authStatus, login, selectStatus } from 'redux/authSlice'
-import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -13,58 +12,10 @@ import Typography from '@material-ui/core/Typography'
 import { red } from '@material-ui/core/colors'
 import Box from '@material-ui/core/Box'
 import { CircularProgress } from '@material-ui/core'
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.mode === 'dark' && theme.palette.text.permanentLight,
-    margin: theme.spacing(2),
-  },
-  form: {
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: theme.palette.text.permanentLight,
-      },
-    },
-    '& label.Mui-focused': {
-      color: theme.palette.mode === 'dark' && theme.palette.common.white,
-    },
-    marginTop: theme.spacing(1),
-    // Fixes IE 11 issue
-    width: '100%',
-  },
-  errors: {
-    color: theme.palette.mode === 'light' ? red[600] : red[700],
-  },
-  google: {
-    margin: theme.spacing(2, 0, 2),
-    backgroundColor: theme.palette.mode === 'light' ? red[600] : red[700],
-    '&:hover': {
-      backgroundColor: theme.palette.mode === 'light' ? red[800] : red[900],
-    },
-  },
-  loading: {
-    color: 'white',
-    maxWidth: '1rem',
-    maxHeight: '1rem',
-    marginLeft: '0.5rem',
-  },
-  paper: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  submit: {
-    margin: theme.spacing(2, 0, 2),
-    backgroundColor: theme.palette.primary.light,
-    '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
-    },
-  },
-}))
+import { styled, useTheme } from '@material-ui/core/styles'
 
 export default function LoginPage(props) {
-  const classes = useStyles()
+  const theme = useTheme()
   const dispatch = useDispatch()
   const currentAuthStatus = useSelector(selectStatus)
   const [email, setEmail] = useState('')
@@ -93,16 +44,34 @@ export default function LoginPage(props) {
     setPassword(event.target.value)
   }
 
+  const Form = styled('form')(({ theme }) => ({
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: theme.palette.text.permanentLight,
+      },
+    },
+    '& label.Mui-focused': {
+      color: theme.palette.mode === 'dark' && theme.palette.common.white,
+    },
+    marginTop: theme.spacing(1),
+  }))
+
   return (
     <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
+        <Avatar
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.mode === 'dark' && theme.palette.text.permanentLight,
+            margin: theme.spacing(2),
+          }}
+        >
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleLoginWithAuth0}>
+        <Form onSubmit={handleLoginWithAuth0}>
           <TextField
             autoComplete="email"
             autoFocus
@@ -133,44 +102,61 @@ export default function LoginPage(props) {
             variant="outlined"
           />
           <Box
-            className={classes.errors}
-            display={
-              currentAuthStatus === authStatus.FAILURE ? 'block' : 'none'
-            }
+            display={currentAuthStatus === authStatus.FAILURE ? 'block' : 'none'}
+            sx={{
+              color: theme.palette.mode === 'light' ? red[600] : red[700],
+            }}
           >
             <strong>Wrong email or password.</strong>
           </Box>
           <Button
-            className={classes.submit}
             color="primary"
             fullWidth
             type="submit"
             variant="contained"
+            sx={{
+              margin: theme.spacing(2, 0, 2),
+              backgroundColor: theme.palette.primary.light,
+              '&:hover': {
+                backgroundColor: theme.palette.primary.dark,
+              },
+            }}
           >
             Sign In
             {loading && currentAuthStatus !== authStatus.FAILURE && (
-              <CircularProgress className={classes.loading} />
+              <CircularProgress
+                sx={{
+                  color: 'white',
+                  maxWidth: '1rem',
+                  maxHeight: '1rem',
+                  marginLeft: '0.5rem',
+                }}
+              />
             )}
           </Button>
           <Grid container>
             <Grid item sm>
-              <StyledLink href="/register">
-                Don&apos;t have an account? Sign Up
-              </StyledLink>
+              <StyledLink href="/register">Don&apos;t have an account? Sign Up</StyledLink>
             </Grid>
           </Grid>
           <Button
-            className={classes.google}
             color="primary"
             fullWidth
             onClick={handleLoginWithGoogle}
             type="button"
             variant="contained"
+            sx={{
+              margin: theme.spacing(2, 0, 2),
+              backgroundColor: theme.palette.mode === 'light' ? red[600] : red[700],
+              '&:hover': {
+                backgroundColor: theme.palette.mode === 'light' ? red[800] : red[900],
+              },
+            }}
           >
             Sign In with Google
           </Button>
-        </form>
-      </div>
+        </Form>
+      </Box>
     </Container>
   )
 }

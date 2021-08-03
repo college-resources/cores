@@ -9,32 +9,23 @@ import Head from 'next/head'
 import NavBar from 'components/navigation/NavBar'
 import { StyledEngineProvider } from '@material-ui/core/styles'
 import { ThemeProvider } from 'components/ThemeContext'
+import { CacheProvider } from '@emotion/react'
 import { withRouter } from 'next/router'
+import createEmotionCache from '../scripts/createEmotionCache'
+import { useEffect, useState } from 'react'
 
-class MyApp extends App {
-  constructor(props) {
-    super(props)
-    this.state = { title: '' }
-    this._updateTitle = this._updateTitle.bind(this)
-    this.props.setUser(this.props.ctxUser)
-    this.props.setVersion(this.props.version)
-  }
+// Client-side cache, shared for the whole session of the user in the browser
+const clientSideEmotionCache = createEmotionCache()
 
-  static getInitialProps({ ctx }) {
-    const initialProps = { version: process.env.npm_package_version }
+function MyApp(props) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
-    if (ctx.req) {
-      initialProps.ctxUser = ctx.req.user && ctx.req.user.profile
-    }
+  const [title, setTitle] = useState('')
 
-    return initialProps
-  }
+  useEffect(() => {
+    props.setUser(props.ctxUser)
+    props.setVersion(props.version)
 
-  _updateTitle(newValue) {
-    this.setState({ title: newValue })
-  }
-
-  componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
@@ -42,37 +33,45 @@ class MyApp extends App {
     }
 
     // Get profile from session
-    if (!this.props.user) {
-      this.props.session()
+    if (!props.user) {
+      props.session()
     }
+  }, [])
+
+  return (
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <title>{title} | College Resources</title>
+
+        {/* This needs to be here and not in _document */}
+        <meta
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+          name="viewport"
+        />
+      </Head>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider>
+          <CssBaseline />
+          <Provider store={store}>
+            <NavBar title={title} />
+            <Box mt={2}>
+              <Component updateTitle={setTitle} {...pageProps} />
+            </Box>
+          </Provider>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </CacheProvider>
+  )
+}
+
+MyApp.getInitialProps = async ({ ctx }) => {
+  const initialProps = { version: process.env.npm_package_version }
+
+  if (ctx.req) {
+    initialProps.ctxUser = ctx.req.user && ctx.req.user.profile
   }
 
-  render() {
-    const { Component, pageProps } = this.props
-
-    return (
-      <>
-        <Head>
-          <meta
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-            name="viewport"
-          />
-          <title>{this.state.title} | College Resources</title>
-        </Head>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider>
-            <CssBaseline />
-            <Provider store={store}>
-              <NavBar title={this.state.title} />
-              <Box mt={2}>
-                <Component updateTitle={this._updateTitle} {...pageProps} />
-              </Box>
-            </Provider>
-          </ThemeProvider>
-        </StyledEngineProvider>
-      </>
-    )
-  }
+  return initialProps
 }
 
 const mapStateToProps = (state) => ({
@@ -85,6 +84,4 @@ const mapDispatchToProps = {
   setVersion,
 }
 
-export default wrapper.withRedux(
-  withRouter(connect(mapStateToProps, mapDispatchToProps)(MyApp)),
-)
+export default wrapper.withRedux(withRouter(connect(mapStateToProps, mapDispatchToProps)(MyApp)))

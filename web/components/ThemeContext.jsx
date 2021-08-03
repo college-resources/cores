@@ -4,14 +4,7 @@ import {
   unstable_createMuiStrictModeTheme as createStrictModeTheme,
 } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
-import {
-  createContext,
-  useReducer,
-  useEffect,
-  useMemo,
-  useContext,
-  useCallback,
-} from 'react'
+import { createContext, useReducer, useEffect, useMemo, useContext, useCallback } from 'react'
 import { getCookie } from 'scripts/helpers'
 import { indigo } from '@material-ui/core/colors'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
@@ -30,11 +23,11 @@ if (process.env.NODE_ENV !== 'production') {
   DispatchContext.displayName = 'ThemeDispatchContext'
 }
 
-let createTheme;
+let createTheme
 if (process.env.REACT_STRICT_MODE) {
-  createTheme = createStrictModeTheme;
+  createTheme = createStrictModeTheme
 } else {
-  createTheme = createLegacyModeTheme;
+  createTheme = createLegacyModeTheme
 }
 
 export function ThemeProvider(props) {
@@ -60,7 +53,7 @@ export function ThemeProvider(props) {
   useEffect(() => {
     if (process.browser) {
       const nextPaletteColors = JSON.parse(getCookie('paletteColors') || 'null')
-      const nextPaletteMode = getCookie('paletteMode') || preferredMode;
+      const nextPaletteMode = getCookie('paletteMode') || preferredMode
 
       dispatch({
         type: 'CHANGE',
@@ -136,9 +129,7 @@ export function ThemeProvider(props) {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <DispatchContext.Provider value={dispatch}>
-        {children}
-      </DispatchContext.Provider>
+      <DispatchContext.Provider value={dispatch}>{children}</DispatchContext.Provider>
     </MuiThemeProvider>
   )
 }
@@ -152,8 +143,5 @@ ThemeProvider.propTypes = {
  */
 export function useChangeTheme() {
   const dispatch = useContext(DispatchContext)
-  return useCallback(
-    (options) => dispatch({ payload: options, type: 'CHANGE' }),
-    [dispatch],
-  )
+  return useCallback((options) => dispatch({ payload: options, type: 'CHANGE' }), [dispatch])
 }

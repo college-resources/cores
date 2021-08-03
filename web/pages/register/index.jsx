@@ -1,51 +1,13 @@
 import { useEffect, useState } from 'react'
-import Avatar from '@material-ui/core/Avatar'
-import Button from '@material-ui/core/Button'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
+import { Avatar, Box, Button, Container, Grid, TextField, Typography } from '@material-ui/core'
+import { styled, useTheme } from '@material-ui/core/styles'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import StyledLink from 'components/StyledLink'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
 import { register } from 'redux/authSlice'
 import { useDispatch } from 'react-redux'
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.mode === 'dark' && theme.palette.text.permanentLight,
-    margin: theme.spacing(2),
-  },
-  form: {
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: theme.palette.text.permanentLight,
-      },
-    },
-    '& label.Mui-focused': {
-      color: theme.palette.mode === 'dark' && theme.palette.common.white,
-    },
-    marginTop: theme.spacing(3),
-    // Fix IE 11 issue
-    width: '100%',
-  },
-  paper: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  submit: {
-    '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
-    },
-    backgroundColor: theme.palette.primary.light,
-    margin: theme.spacing(3, 0, 2),
-  },
-}))
+import StyledLink from 'components/StyledLink'
 
 export default function RegisterPage(props) {
-  const classes = useStyles()
+  const theme = useTheme()
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [familyName, setFamilyName] = useState('')
@@ -76,16 +38,34 @@ export default function RegisterPage(props) {
     dispatch(register(email, givenName, familyName, password))
   }
 
+  const Form = styled('form')(({ theme }) => ({
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: theme.palette.text.permanentLight,
+      },
+    },
+    '& label.Mui-focused': {
+      color: theme.palette.mode === 'dark' && theme.palette.common.white,
+    },
+    marginTop: theme.spacing(3),
+  }))
+
   return (
     <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
+        <Avatar
+          sx={{
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.mode === 'dark' && theme.palette.text.permanentLight,
+            margin: theme.spacing(2),
+          }}
+        >
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <Form noValidate>
           <Grid container spacing={2}>
             <Grid item sm={6} xs={12}>
               <TextField
@@ -143,24 +123,28 @@ export default function RegisterPage(props) {
             </Grid>
           </Grid>
           <Button
-            className={classes.submit}
             color="primary"
             fullWidth
             onClick={handleRegister}
             type="button"
             variant="contained"
+            sx={{
+              '&:hover': {
+                backgroundColor: theme.palette.primary.dark,
+              },
+              backgroundColor: theme.palette.primary.light,
+              margin: theme.spacing(3, 0, 2),
+            }}
           >
             Sign Up
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <StyledLink href="/login">
-                Already have an account? Sign in
-              </StyledLink>
+              <StyledLink href="/login">Already have an account? Sign in</StyledLink>
             </Grid>
           </Grid>
-        </form>
-      </div>
+        </Form>
+      </Box>
     </Container>
   )
 }

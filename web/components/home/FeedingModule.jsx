@@ -9,22 +9,19 @@ import RestaurantIcon from '@material-ui/icons/Restaurant'
 import { Typography } from '@material-ui/core'
 import formatMsTo24h from 'scripts/formatMsTo24h'
 import { green } from '@material-ui/core/colors'
-import { styled } from '@material-ui/core/styles'
+import { styled, useTheme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import ButtonLink from 'components/ButtonLink'
 
 const findLastAndNextMeal = (feeding) => {
-  const currentDayInWeeks = feeding.weeks.map(
-    (week) => week.days[(new Date().getDay() + 6) % 7],
-  )
+  const currentDayInWeeks = feeding.weeks.map((week) => week.days[(new Date().getDay() + 6) % 7])
   return currentDayInWeeks.map((day) => {
     let isLastOpen = false
     let lastMeal = ''
     let nextMeal = ''
 
     const currentTimeMs =
-      (Date.now() - new Date().getTimezoneOffset() * 60 * 1000) %
-      (24 * 3600 * 1000)
+      (Date.now() - new Date().getTimezoneOffset() * 60 * 1000) % (24 * 3600 * 1000)
 
     day.meals.forEach((meal) => {
       if (meal.timeStart < currentTimeMs) {
@@ -55,24 +52,17 @@ const findCurrentWeek = (feeding) => {
 
   const startsFrom = new Date(feeding.startsFrom)
   const differenceBetweenStartDateAndNowInMs = Date.now() - startsFrom.getTime()
-  const daysFromStart = Math.floor(
-    differenceBetweenStartDateAndNowInMs / msInADay,
-  )
+  const daysFromStart = Math.floor(differenceBetweenStartDateAndNowInMs / msInADay)
   const daysFromReset = daysFromStart % (weeksLength * 7)
 
   return Math.floor(daysFromReset / 7)
 }
 
 function FavoriteFeeding({ favoriteFeeding }) {
+  const theme = useTheme()
   const meals = findLastAndNextMeal(favoriteFeeding)
   const currentWeekIndex = findCurrentWeek(favoriteFeeding)
   const timeOfNextMeal = meals[currentWeekIndex].nextMeal.timeStart
-
-  const IsOpen = styled(Box)(({ theme }) => ({
-    color: meals[currentWeekIndex].isLastOpen
-      ? green['600']
-      : theme.palette.error.main,
-  }))
 
   return (
     <Grid
@@ -89,15 +79,18 @@ function FavoriteFeeding({ favoriteFeeding }) {
         </p>
       </Box>
       <p>
-        <IsOpen component="span">
+        <Box
+          component="span"
+          sx={{
+            color: meals[currentWeekIndex].isLastOpen ? green['600'] : theme.palette.error.main,
+          }}
+        >
           <b>
             {meals[currentWeekIndex].isLastOpen
-              ? `Open until ${formatMsTo24h(
-                  meals[currentWeekIndex].lastMeal.timeEnd,
-                )}`
+              ? `Open until ${formatMsTo24h(meals[currentWeekIndex].lastMeal.timeEnd)}`
               : 'Closed'}
           </b>
-        </IsOpen>
+        </Box>
         {' - Next meal '}
         <b>{formatMsTo24h(timeOfNextMeal)}</b>
       </p>
@@ -120,13 +113,7 @@ export default function FeedingModule() {
 
   return (
     <Module elevation={3}>
-      <Box
-        alignItems="center"
-        display="flex"
-        justifyContent="center"
-        mb={2.5}
-        mt={0.5}
-      >
+      <Box alignItems="center" display="flex" justifyContent="center" mb={2.5} mt={0.5}>
         <RestaurantIcon />
         <Box mx={1}>
           <Typography variant="h6">FEEDING</Typography>
@@ -140,18 +127,8 @@ export default function FeedingModule() {
         </Box>
       ) : (
         <Box pt={2}>
-          <Grid
-            alignItems="center"
-            container
-            direction="row"
-            justifyContent="center"
-          >
-            <Button
-              href="/feeding"
-              component={ButtonLink}
-              variant="outlined"
-              color="inherit"
-            >
+          <Grid alignItems="center" container direction="row" justifyContent="center">
+            <Button href="/feeding" component={ButtonLink} variant="outlined" color="inherit">
               CHOOSE A FAVOURITE FEEDING TO APPEAR HERE
             </Button>
           </Grid>

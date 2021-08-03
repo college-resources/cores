@@ -11,7 +11,7 @@ const Module = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
 }))
 
-const Lesson = styled(Grid)(({ theme }) => ({
+const LessonGrid = styled(Grid)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? '#fff' : '#40444b',
   borderRadius: theme.shape.borderRadius,
   color: theme.palette.text.normal,
@@ -20,13 +20,7 @@ const Lesson = styled(Grid)(({ theme }) => ({
 export default function CoursesModule() {
   return (
     <Module elevation={3}>
-      <Box
-        alignItems="center"
-        display="flex"
-        justifyContent="center"
-        mb={2.5}
-        mt={0.5}
-      >
+      <Box alignItems="center" display="flex" justifyContent="center" mb={2.5} mt={0.5}>
         <BookIcon />
         <Box mx={1}>
           <Typography variant="h6">COURSES</Typography>
@@ -37,7 +31,7 @@ export default function CoursesModule() {
       <Box mt={2}>
         <Box mb={1}>
           <Paper>
-            <Lesson alignItems="center" container wrap="nowrap">
+            <LessonGrid alignItems="center" container wrap="nowrap">
               <Grid item>
                 <Box p={2}>
                   <Typography>1</Typography>
@@ -49,12 +43,12 @@ export default function CoursesModule() {
                   <Typography>[PH] Lesson 1</Typography>
                 </Box>
               </Grid>
-            </Lesson>
+            </LessonGrid>
           </Paper>
         </Box>
         <Box mb={1}>
           <Paper>
-            <Lesson alignItems="center" container wrap="nowrap">
+            <LessonGrid alignItems="center" container wrap="nowrap">
               <Grid item>
                 <Box p={2}>
                   <Typography>2</Typography>
@@ -66,12 +60,12 @@ export default function CoursesModule() {
                   <Typography>[PH] Lesson 2</Typography>
                 </Box>
               </Grid>
-            </Lesson>
+            </LessonGrid>
           </Paper>
         </Box>
         <Box mb={0.5}>
           <Paper>
-            <Lesson alignItems="center" container wrap="nowrap">
+            <LessonGrid alignItems="center" container wrap="nowrap">
               <Grid item>
                 <Box p={2}>
                   <Typography>2</Typography>
@@ -83,7 +77,7 @@ export default function CoursesModule() {
                   <Typography>[PH] Lesson 3</Typography>
                 </Box>
               </Grid>
-            </Lesson>
+            </LessonGrid>
           </Paper>
         </Box>
       </Box>

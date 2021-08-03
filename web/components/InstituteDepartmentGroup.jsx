@@ -31,9 +31,7 @@ export default function InstituteDepartmentGroup() {
       </Grid>
       {selectedInstituteIndex >= 0 && selectedDepartmentIndex < 0 && (
         <Box mt={4}>
-          <Typography align="center">
-            Select a department from the dropdown to see more.
-          </Typography>
+          <Typography align="center">Select a department from the dropdown to see more.</Typography>
         </Box>
       )}
     </>

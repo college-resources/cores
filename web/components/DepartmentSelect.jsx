@@ -1,6 +1,6 @@
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectInstituteIndex } from 'redux/instituteSlice'
 import { useEffect } from 'react'
@@ -13,25 +13,7 @@ import {
 } from 'redux/departmentSlice'
 import isEmpty from 'lodash/isEmpty'
 
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    [theme.breakpoints.down('sm')]: {
-      marginTop: 0,
-    },
-    flexGrow: 1,
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: 'gray',
-      },
-    },
-    '& label.Mui-focused': {
-      color: theme.palette.mode === 'dark' && theme.palette.common.white,
-    },
-  },
-}))
-
 export default function DepartmentSelect() {
-  const classes = useStyles()
   const dispatch = useDispatch()
   const selectedInstituteIndex = useSelector(selectInstituteIndex)
   const departments = useSelector(selectDepartments)
@@ -47,12 +29,26 @@ export default function DepartmentSelect() {
     dispatch(updateDepartmentIndex(event.target.value))
   }
 
+  const Dropdown = styled(TextField)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0,
+    },
+    flexGrow: 1,
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: 'gray',
+      },
+    },
+    '& label.Mui-focused': {
+      color: theme.palette.mode === 'dark' && theme.palette.common.white,
+    },
+  }))
+
   return (
     <>
-      {selectedInstituteIndex >= 0 ? (
+      {selectedInstituteIndex >= 0 && (
         <Box display="flex" mb={0}>
-          <TextField
-            className={classes.textField}
+          <Dropdown
             id="department"
             label="Department"
             margin="normal"
@@ -70,10 +66,8 @@ export default function DepartmentSelect() {
                 </MenuItem>
               ))
             )}
-          </TextField>
+          </Dropdown>
         </Box>
-      ) : (
-        <></>
       )}
     </>
   )
