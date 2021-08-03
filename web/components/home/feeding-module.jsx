@@ -11,7 +11,7 @@ import formatMsTo24h from 'scripts/formatMsTo24h'
 import { green } from '@material-ui/core/colors'
 import { styled, useTheme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import ButtonLink from 'components/ButtonLink'
+import ButtonLink from 'components/button-link'
 
 const findLastAndNextMeal = (feeding) => {
   const currentDayInWeeks = feeding.weeks.map((week) => week.days[(new Date().getDay() + 6) % 7])

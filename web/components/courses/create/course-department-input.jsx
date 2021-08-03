@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   },
 })
 
-export default function DepartmentInput(props) {
+export default function CourseDepartmentInput(props) {
   const classes = useStyles()
   const { departments, onChange, value } = props
 

@@ -6,9 +6,9 @@ import App from 'next/app'
 import Box from '@material-ui/core/Box'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Head from 'next/head'
-import NavBar from 'components/navigation/NavBar'
+import Navbar from 'components/navigation/navbar'
 import { StyledEngineProvider } from '@material-ui/core/styles'
-import { ThemeProvider } from 'components/ThemeContext'
+import { ThemeProvider } from 'components/theme-context'
 import { CacheProvider } from '@emotion/react'
 import { withRouter } from 'next/router'
 import createEmotionCache from '../scripts/createEmotionCache'
@@ -53,7 +53,7 @@ function MyApp(props) {
         <ThemeProvider>
           <CssBaseline />
           <Provider store={store}>
-            <NavBar title={title} />
+            <Navbar title={title} />
             <Box mt={2}>
               <Component updateTitle={setTitle} {...pageProps} />
             </Box>

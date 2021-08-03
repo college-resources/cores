@@ -4,7 +4,7 @@ import MinusIcon from '@material-ui/icons/Remove'
 import PlusIcon from '@material-ui/icons/Add'
 import TextField from '@material-ui/core/TextField'
 
-export default function HoursLectureInput(props) {
+export default function CourseCreditInput(props) {
   const { onChange, value } = props
 
   const handleChange = (num) => () => {
@@ -21,29 +21,22 @@ export default function HoursLectureInput(props) {
               readOnly: true,
             }}
             fullWidth
-            id="hours-lecture-input"
-            label="Lecture hours"
+            id="credit-input"
+            label="Credit"
             margin="normal"
+            required
             type="number"
             value={value}
             variant="outlined"
           />
         </Box>
         <Box ml={1} my="auto">
-          <Fab
-            aria-label="decrement lecture hours"
-            color="secondary"
-            onClick={handleChange(-1)}
-          >
+          <Fab aria-label="decrement credit" color="secondary" onClick={handleChange(-1)}>
             <MinusIcon />
           </Fab>
         </Box>
         <Box ml={1} my="auto">
-          <Fab
-            aria-label="increment lecture hours"
-            color="primary"
-            onClick={handleChange(1)}
-          >
+          <Fab aria-label="increment credit" color="primary" onClick={handleChange(1)}>
             <PlusIcon />
           </Fab>
         </Box>

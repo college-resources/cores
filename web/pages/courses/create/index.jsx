@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
-import CodeInput from 'components/courses/create/CodeInput'
+import CourseCodeInput from 'components/courses/create/course-code-input'
 import Container from '@material-ui/core/Container'
-import CreditInput from 'components/courses/create/CreditInput'
-import DepartmentInput from 'components/courses/create/DepartmentInput'
+import CourseCreditInput from 'components/courses/create/course-credit-input'
+import CourseDepartmentInput from 'components/courses/create/course-department-input'
 import Grid from '@material-ui/core/Grid'
-import HoursLabInput from 'components/courses/create/HoursLabInput'
-import HoursLectureInput from 'components/courses/create/HoursLectureInput'
-import NameInput from 'components/courses/create/NameInput'
-import SemesterInput from 'components/courses/create/SemesterInput'
-import TypeInput from '../../../components/courses/create/TypeInput'
+import CourseHoursLabInput from 'components/courses/create/course-hours-lab-input'
+import CourseHoursLectureInput from 'components/courses/create/course-hours-lecture-input'
+import CourseNameInput from 'components/courses/create/course-name-input'
+import CourseSemesterInput from 'components/courses/create/course-semester-input'
+import CourseTypeInput from '../../../components/courses/create/course-type-input'
 import { dynamicSort } from 'scripts/sorting'
 import gql from 'scripts/graphql'
 import { makeStyles } from '@material-ui/core/styles'
@@ -117,28 +117,25 @@ export default function CreatePage(props) {
   return (
     <Container>
       <form autoComplete="off" className={classes.container} noValidate>
-        <NameInput onChange={handleChange('name')} value={values.name} />
-        <DepartmentInput
+        <CourseNameInput onChange={handleChange('name')} value={values.name} />
+        <CourseDepartmentInput
           departments={departments}
           onChange={handleChange('department')}
           value={values.department}
         />
-        <SemesterInput
+        <CourseSemesterInput
           onChange={handleChange('semester')}
           setValues={setValues}
           value={values.semester}
         />
-        <CodeInput onChange={handleChange('code')} value={values.code} />
-        <HoursLectureInput
+        <CourseCodeInput onChange={handleChange('code')} value={values.code} />
+        <CourseHoursLectureInput
           onChange={handleChange('lectureHours')}
           value={values.lectureHours}
         />
-        <HoursLabInput
-          onChange={handleChange('labHours')}
-          value={values.labHours}
-        />
-        <CreditInput onChange={handleChange('credit')} value={values.credit} />
-        <TypeInput onChange={handleChange('type')} value={values.type} />
+        <CourseHoursLabInput onChange={handleChange('labHours')} value={values.labHours} />
+        <CourseCreditInput onChange={handleChange('credit')} value={values.credit} />
+        <CourseTypeInput onChange={handleChange('type')} value={values.type} />
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <Button

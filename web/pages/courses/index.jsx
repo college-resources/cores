@@ -9,8 +9,8 @@ import Grid from '@material-ui/core/Grid'
 import Link from 'next/link'
 import groupBy from 'scripts/groupBy'
 import isEmpty from 'lodash/isEmpty'
-import InstituteDepartmentGroup from 'components/InstituteDepartmentGroup'
-import Semester from 'components/courses/Semester'
+import InstituteDepartmentGroup from 'components/institute-department-group'
+import Semester from 'components/courses/semester'
 import { useTheme } from '@material-ui/core/styles'
 
 export default function CoursesPage(props) {

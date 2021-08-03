@@ -1,5 +1,5 @@
 import Drawer from '@material-ui/core/Drawer'
-import SideBarList from './SideBarList'
+import SidebarList from './sidebar-list'
 import { styled, useTheme } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 
@@ -29,7 +29,7 @@ export default function PermanentBar() {
         }}
       >
         <Toolbar />
-        <SideBarList />
+        <SidebarList />
       </Box>
     </Drawer>
   )

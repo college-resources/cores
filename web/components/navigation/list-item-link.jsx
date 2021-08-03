@@ -1,4 +1,4 @@
-import ButtonLink from 'components/ButtonLink'
+import ButtonLink from 'components/button-link'
 import ListItem from '@material-ui/core/ListItem'
 
 export default function ListItemLink(props) {

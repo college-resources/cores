@@ -6,7 +6,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemLink from './ListItemLink'
+import ListItemLink from './list-item-link'
 import ListItemText from '@material-ui/core/ListItemText'
 import NotesIcon from '@material-ui/icons/Notes'
 import RestaurantIcon from '@material-ui/icons/Restaurant'
@@ -15,7 +15,7 @@ import SignoutIcon from '@material-ui/icons/ExitToApp'
 import { selectVersion } from '../../redux/envSlice'
 import { Typography } from '@material-ui/core'
 
-export default function SideBarList() {
+export default function SidebarList() {
   const dispatch = useDispatch()
   const currentAuthStatus = useSelector(selectStatus)
   const version = useSelector(selectVersion)

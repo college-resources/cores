@@ -3,7 +3,7 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { Children } from 'react'
 import createEmotionServer from '@emotion/server/create-instance'
 import createEmotionCache from '../scripts/createEmotionCache'
-import { themeColor } from '../components/ThemeContext'
+import { themeColor } from '../components/theme-context'
 
 export default class MyDocument extends Document {
   render() {

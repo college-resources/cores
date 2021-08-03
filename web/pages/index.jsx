@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
-import CoursesModule from 'components/home/CoursesModule'
-import FeedingModule from 'components/home/FeedingModule'
+import CoursesModule from 'components/home/courses-module'
+import FeedingModule from 'components/home/feeding-module'
 import Grid from '@material-ui/core/Grid'
 
 export default function Homepage(props) {

@@ -7,20 +7,20 @@ import Avatar from '@material-ui/core/Avatar'
 import Brightness4Icon from '@material-ui/icons/Brightness4'
 import Brightness7Icon from '@material-ui/icons/Brightness7'
 import Button from '@material-ui/core/Button'
-import ButtonLink from 'components/ButtonLink'
+import ButtonLink from 'components/button-link'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import PermanentBar from './PermanentBar'
-import SwipeableBar from './SwipeableBar'
+import PermanentBar from './permanent-bar'
+import SwipeableBar from './swipeable-bar'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { useChangeTheme } from 'components/ThemeContext'
+import { useChangeTheme } from 'components/theme-context'
 import { useSelector } from 'react-redux'
 
 const iOS = process.browser && /iPad|iPhone|iPod/u.test(navigator.userAgent)
 
-export default function NavBar(props) {
+export default function Navbar(props) {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const { title } = props
   const user = useSelector(selectUser)

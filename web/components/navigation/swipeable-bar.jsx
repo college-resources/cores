@@ -1,5 +1,5 @@
 import { Box } from '@material-ui/core'
-import SideBarList from './SideBarList'
+import SidebarList from './sidebar-list'
 
 export default function SwipeableBar(props) {
   const toggleDrawer = (open) => (event) => {
@@ -23,7 +23,7 @@ export default function SwipeableBar(props) {
         marginTop: '64px',
       }}
     >
-      <SideBarList />
+      <SidebarList />
     </Box>
   )
 }

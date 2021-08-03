@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { Favorite, FavoriteBorder } from '@material-ui/icons'
 import Typography from '@material-ui/core/Typography'
-import Menu from './Menu'
+import Menu from './menu'
 import { useDispatch, useSelector } from 'react-redux'
 import { getFeeding, selectFeedingIndex, selectFeedings, updateFeeding } from 'redux/feedingSlice'
 import {

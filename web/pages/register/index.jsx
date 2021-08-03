@@ -4,7 +4,7 @@ import { styled, useTheme } from '@material-ui/core/styles'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { register } from 'redux/authSlice'
 import { useDispatch } from 'react-redux'
-import StyledLink from 'components/StyledLink'
+import StyledLink from 'components/styled-link'
 
 export default function RegisterPage(props) {
   const theme = useTheme()
