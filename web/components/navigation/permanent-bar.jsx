@@ -1,13 +1,8 @@
-import Drawer from '@material-ui/core/Drawer'
+import { Drawer, Paper, Toolbar } from '@material-ui/core'
+import { useTheme } from '@material-ui/core/styles'
 import SidebarList from './sidebar-list'
-import { styled, useTheme } from '@material-ui/core/styles'
-import Box from '@material-ui/core/Box'
 
-const Toolbar = styled('div')(({ theme }) => ({
-  // Necessary for content to be below app bar
-  // TODO: Fix
-  toolbar: theme.mixins.toolbar,
-}))
+const drawerWidth = 240
 
 export default function PermanentBar() {
   const theme = useTheme()
@@ -16,21 +11,19 @@ export default function PermanentBar() {
     <Drawer
       variant="permanent"
       sx={{
-        backgroundColor: theme.palette.background.tertiary,
-        [theme.breakpoints.down('xl')]: {
+        [theme.breakpoints.down('lg')]: {
           display: 'none',
+        },
+        '& .MuiDrawer-paper': {
+          width: drawerWidth,
+          boxShadow: 1,
         },
       }}
     >
-      <Box
-        sx={{
-          width: 240,
-          marginTop: '64px',
-        }}
-      >
+      <Paper elevation={1} sx={{ height: '100%' }}>
         <Toolbar />
         <SidebarList />
-      </Box>
+      </Paper>
     </Drawer>
   )
 }

@@ -2,12 +2,11 @@ import { Provider, connect } from 'react-redux'
 import { session, setUser } from 'redux/authSlice'
 import { setVersion } from 'redux/envSlice'
 import store, { wrapper } from 'redux/store'
-import App from 'next/app'
 import Box from '@material-ui/core/Box'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Head from 'next/head'
 import Navbar from 'components/navigation/navbar'
-import { StyledEngineProvider } from '@material-ui/core/styles'
+import { StyledEngineProvider, useTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from 'components/theme-context'
 import { CacheProvider } from '@emotion/react'
 import { withRouter } from 'next/router'
@@ -20,6 +19,7 @@ const clientSideEmotionCache = createEmotionCache()
 function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
+  const theme = useTheme()
   const [title, setTitle] = useState('')
 
   useEffect(() => {
@@ -54,7 +54,14 @@ function MyApp(props) {
           <CssBaseline />
           <Provider store={store}>
             <Navbar title={title} />
-            <Box mt={2}>
+            <Box
+              mt={2}
+              sx={{
+                [theme.breakpoints.up('lg')]: {
+                  marginLeft: '240px',
+                },
+              }}
+            >
               <Component updateTitle={setTitle} {...pageProps} />
             </Box>
           </Provider>

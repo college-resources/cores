@@ -9,7 +9,7 @@ import RestaurantIcon from '@material-ui/icons/Restaurant'
 import { Typography } from '@material-ui/core'
 import formatMsTo24h from 'scripts/formatMsTo24h'
 import { green } from '@material-ui/core/colors'
-import { styled, useTheme } from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import ButtonLink from 'components/button-link'
 
@@ -99,6 +99,7 @@ function FavoriteFeeding({ favoriteFeeding }) {
 }
 
 export default function FeedingModule() {
+  const theme = useTheme()
   const dispatch = useDispatch()
   const { feeding: favoriteFeeding } = useSelector(selectPreferences)
 
@@ -106,13 +107,8 @@ export default function FeedingModule() {
     dispatch(getPreferences())
   }, [])
 
-  const Module = styled(Paper)(({ theme }) => ({
-    color: theme.palette.text.secondary,
-    padding: theme.spacing(2),
-  }))
-
   return (
-    <Module elevation={3}>
+    <Paper sx={{ padding: theme.spacing(2) }}>
       <Box alignItems="center" display="flex" justifyContent="center" mb={2.5} mt={0.5}>
         <RestaurantIcon />
         <Box mx={1}>
@@ -134,6 +130,6 @@ export default function FeedingModule() {
           </Grid>
         </Box>
       )}
-    </Module>
+    </Paper>
   )
 }

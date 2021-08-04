@@ -8,6 +8,7 @@ import { createContext, useReducer, useEffect, useMemo, useContext, useCallback 
 import { getCookie } from 'scripts/helpers'
 import { indigo } from '@material-ui/core/colors'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { darkScrollbar } from '@material-ui/core'
 
 export const themeColor = indigo['800']
 
@@ -66,55 +67,54 @@ export function ThemeProvider(props) {
   }, [preferredMode])
 
   const theme = useMemo(() => {
-    const nextTheme = createTheme({
-      nprogress: {
-        color: paletteMode === 'light' ? '#000' : '#fff',
+    const nextTheme = createTheme(
+      {
+        nprogress: {
+          color: paletteMode === 'light' ? '#000' : '#fff',
+        },
+        palette: {
+          primary: {
+            dark: indigo[800],
+            level3: indigo[500],
+            light: indigo[600],
+            main: indigo[700],
+          },
+          secondary: {
+            main: indigo[700],
+          },
+          text: {
+            normal: paletteMode === 'light' ? 'black' : '#dcddde',
+            permanentLight: '#dcddde',
+            reverse: paletteMode === 'light' ? '#dcddde' : 'black',
+          },
+          mode: paletteMode,
+          ...paletteColors,
+        },
+        typography: {
+          fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+          ].join(','),
+        },
       },
-      palette: {
-        background: {
-          default: paletteMode === 'light' ? '#fff' : '#2f3136',
-          tertiary: paletteMode === 'light' ? '#fff' : '#202225',
+      {
+        components: {
+          MuiCssBaseline: {
+            styleOverrides: {
+              body: paletteMode === 'dark' ? darkScrollbar() : null,
+            },
+          },
         },
-        primary: {
-          dark: indigo[800],
-          level3: indigo[500],
-          light: indigo[600],
-          main: indigo[700],
-        },
-        secondary: {
-          main: indigo[700],
-        },
-        text: {
-          normal: paletteMode === 'light' ? 'black' : '#dcddde',
-          permanentLight: '#dcddde',
-          reverse: paletteMode === 'light' ? '#dcddde' : 'black',
-        },
-        mode: paletteMode,
-        ...paletteColors,
       },
-      typography: {
-        fontFamily: [
-          '-apple-system',
-          'BlinkMacSystemFont',
-          '"Segoe UI"',
-          'Roboto',
-          '"Helvetica Neue"',
-          'Arial',
-          'sans-serif',
-          '"Apple Color Emoji"',
-          '"Segoe UI Emoji"',
-          '"Segoe UI Symbol"',
-        ].join(','),
-      },
-    })
-
-    if (paletteMode === 'dark') nextTheme.palette.background.paper = '#36393f'
-
-    nextTheme.palette.background.level2 =
-      paletteMode === 'light' ? nextTheme.palette.grey[100] : '#333'
-
-    nextTheme.palette.background.level1 =
-      paletteMode === 'light' ? '#fff' : nextTheme.palette.grey[900]
+    )
 
     return nextTheme
   }, [paletteColors, paletteMode])

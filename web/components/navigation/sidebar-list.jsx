@@ -78,8 +78,7 @@ export default function SidebarList() {
           </List>
         </>
       )}
-      <Divider />
-      <List style={{ marginTop: 'auto' }}>
+      <List style={{ position: 'absolute', bottom: 0 }}>
         <ListItem>
           <Typography>{`Version: ${version}`}</Typography>
         </ListItem>

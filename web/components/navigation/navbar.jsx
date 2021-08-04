@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { status as authStatus, selectStatus, selectUser } from 'redux/authSlice'
+import { selectStatus, selectUser, status as authStatus } from 'redux/authSlice'
 import { useTheme } from '@material-ui/core/styles'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import AppBar from '@material-ui/core/AppBar'
@@ -11,14 +11,16 @@ import ButtonLink from 'components/button-link'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import PermanentBar from './permanent-bar'
-import SwipeableBar from './swipeable-bar'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { useChangeTheme } from 'components/theme-context'
 import { useSelector } from 'react-redux'
+import SidebarList from './sidebar-list'
 
 const iOS = process.browser && /iPad|iPhone|iPod/u.test(navigator.userAgent)
+
+const drawerWidth = 240
 
 export default function Navbar(props) {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -45,7 +47,6 @@ export default function Navbar(props) {
     <>
       <AppBar
         sx={{
-          backgroundColor: theme.palette.primary.dark,
           zIndex: theme.zIndex.drawer + 1,
         }}
       >
@@ -56,11 +57,10 @@ export default function Navbar(props) {
             edge="start"
             onClick={toggleDrawer(true)}
             sx={{
-              [theme.breakpoints.up('xl')]: {
+              [theme.breakpoints.up('lg')]: {
                 display: 'none',
               },
-              color: theme.palette.common.white,
-              marginRight: theme.spacing(2),
+              mr: 2,
             }}
           >
             <MenuIcon />
@@ -68,18 +68,25 @@ export default function Navbar(props) {
           <SwipeableDrawer
             disableBackdropTransition={!iOS}
             disableDiscovery={iOS}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
             open={drawerOpen}
+            onOpen={toggleDrawer(true)}
+            onClose={toggleDrawer(false)}
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
             sx={{
-              [theme.breakpoints.up('xl')]: {
+              [theme.breakpoints.up('lg')]: {
                 display: 'none',
+              },
+              '& .MuiDrawer-paper': {
+                width: drawerWidth,
+                bgcolor: theme.palette.mode === 'dark' ? theme.palette.common.black : '',
               },
             }}
           >
-            <SwipeableBar setDrawerOpen={setDrawerOpen} />
+            <Toolbar />
+            <SidebarList />
           </SwipeableDrawer>
-          <Typography variant="h6" sx={{ color: theme.palette.common.white, flexGrow: 1 }}>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
           <IconButton color="inherit" onClick={handleTogglePaletteMode}>
@@ -105,12 +112,7 @@ export default function Navbar(props) {
               )}
             </IconButton>
           ) : (
-            <Button
-              color="inherit"
-              component={ButtonLink}
-              href="/login"
-              sx={{ color: theme.palette.common.white }}
-            >
+            <Button color="inherit" component={ButtonLink} href="/login">
               Login
             </Button>
           )}

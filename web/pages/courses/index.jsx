@@ -52,7 +52,7 @@ export default function CoursesPage(props) {
       )}
       <InstituteDepartmentGroup />
       {selectedDepartmentIndex >= 0 && (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{ marginTop: theme.spacing(-1) }}>
           {semesters.map((sem, index) => (
             <Grid item key={`semester-${index}`} md={6} xs={12}>
               <Semester rows={sem} semester={index} />

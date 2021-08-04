@@ -4,22 +4,18 @@ import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import { Typography } from '@material-ui/core'
-import { styled } from '@material-ui/core/styles'
-
-const Module = styled(Paper)(({ theme }) => ({
-  color: theme.palette.text.normal,
-  padding: theme.spacing(2),
-}))
+import { styled, useTheme } from '@material-ui/core/styles'
 
 const LessonGrid = styled(Grid)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'light' ? '#fff' : '#40444b',
   borderRadius: theme.shape.borderRadius,
   color: theme.palette.text.normal,
 }))
 
 export default function CoursesModule() {
+  const theme = useTheme()
+
   return (
-    <Module elevation={3}>
+    <Paper sx={{ padding: theme.spacing(2) }}>
       <Box alignItems="center" display="flex" justifyContent="center" mb={2.5} mt={0.5}>
         <BookIcon />
         <Box mx={1}>
@@ -30,7 +26,7 @@ export default function CoursesModule() {
       <Divider />
       <Box mt={2}>
         <Box mb={1}>
-          <Paper>
+          <Paper elevation={2}>
             <LessonGrid alignItems="center" container wrap="nowrap">
               <Grid item>
                 <Box p={2}>
@@ -47,7 +43,7 @@ export default function CoursesModule() {
           </Paper>
         </Box>
         <Box mb={1}>
-          <Paper>
+          <Paper elevation={2}>
             <LessonGrid alignItems="center" container wrap="nowrap">
               <Grid item>
                 <Box p={2}>
@@ -64,7 +60,7 @@ export default function CoursesModule() {
           </Paper>
         </Box>
         <Box mb={0.5}>
-          <Paper>
+          <Paper elevation={2}>
             <LessonGrid alignItems="center" container wrap="nowrap">
               <Grid item>
                 <Box p={2}>
@@ -81,6 +77,6 @@ export default function CoursesModule() {
           </Paper>
         </Box>
       </Box>
-    </Module>
+    </Paper>
   )
 }
