@@ -7,63 +7,35 @@ import Markdown from 'markdown-to-jsx'
 import MuiDialogTitle from '@material-ui/core/DialogTitle'
 import { useRef, useEffect } from 'react'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
-import { withStyles } from '@material-ui/styles'
 
-const useStyles = makeStyles({
-  root: {
-    '& .MuiDialog-paperWidthLg.MuiDialog-paperScrollBody': {
-      margin: 0,
-      maxWidth: '1280px',
-      width: 'calc(100% - 32px)',
-    },
-  },
-  content: {
-    padding: '8px 16px',
-  },
-  image: {
-    maxWidth: '100%',
-  },
-})
-
-const styles = (theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(2),
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
-})
-
-const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props
+const DialogTitle = (props) => {
+  const { children, onClose, ...other } = props
   return (
     <MuiDialogTitle
-      className={classes.root}
       disableTypography
       style={{ wordWrap: 'break-word', width: 'calc(100% - 64px)' }}
       {...other}
+      sx={{ m: 0, p: 2 }}
     >
       <Typography variant="h6">{children}</Typography>
       {onClose ? (
         <IconButton
           aria-label="close"
-          className={classes.closeButton}
           onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 1,
+            top: 1,
+          }}
         >
           <CloseIcon />
         </IconButton>
       ) : null}
     </MuiDialogTitle>
   )
-})
+}
 
 export default function ScrollDialog(props) {
-  const classes = useStyles()
   const { open, setOpen, texts, title, images } = props
 
   function handleClose() {
@@ -84,27 +56,26 @@ export default function ScrollDialog(props) {
     <Dialog
       aria-describedby="scroll-dialog-description"
       aria-labelledby="scroll-dialog-title"
-      className={classes.root}
       fullWidth
-      maxWidth="lg"
+      maxWidth="xl"
       onClose={handleClose}
       open={open}
       scroll="body"
+      sx={{
+        '& .MuiDialog-paperWidthLg.MuiDialog-paperScrollBody': {
+          margin: 0,
+          maxWidth: '1280px',
+          width: 'calc(100% - 32px)',
+        },
+      }}
     >
       <DialogTitle id="customized-dialog-title" onClose={handleClose}>
         {title}
       </DialogTitle>
-      <DialogContent className={classes.content} dividers>
-        <DialogContentText
-          id="scroll-dialog-description"
-          ref={descriptionElementRef}
-          tabIndex={-1}
-        >
+      <DialogContent dividers sx={{ padding: '8px 16px' }}>
+        <DialogContentText id="scroll-dialog-description" ref={descriptionElementRef} tabIndex={-1}>
           {texts.map((text, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <p key={`text-${index}`}>
-              <Markdown>{text}</Markdown>
-            </p>
+            <Markdown key={`text-${index}`}>{text}</Markdown>
           ))}
         </DialogContentText>
         {images &&
@@ -112,7 +83,6 @@ export default function ScrollDialog(props) {
             // FIXME: Switch to the new Image next component
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              className={classes.image}
               key={`image-${index}`}
               src={image.details.url || image.url}
               alt={'profile image'}

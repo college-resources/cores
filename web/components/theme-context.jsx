@@ -84,7 +84,6 @@ export function ThemeProvider(props) {
           },
           text: {
             normal: paletteMode === 'light' ? 'black' : '#dcddde',
-            permanentLight: '#dcddde',
             reverse: paletteMode === 'light' ? '#dcddde' : 'black',
           },
           mode: paletteMode,

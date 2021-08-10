@@ -12,7 +12,7 @@ import CourseSemesterInput from 'components/courses/create/course-semester-input
 import CourseTypeInput from '../../../components/courses/create/course-type-input'
 import { dynamicSort } from 'scripts/sorting'
 import gql from 'scripts/graphql'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@material-ui/core/styles'
 
 const departmentHandler = () =>
   Promise.resolve(
@@ -25,19 +25,6 @@ const departmentHandler = () =>
   }
 `).then((data) => data.departments.sort(dynamicSort('name'))),
   )
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  dense: {
-    marginTop: theme.spacing(2),
-  },
-  menu: {
-    width: 200,
-  },
-}))
 
 function formDefaults() {
   return {
@@ -53,7 +40,6 @@ function formDefaults() {
 }
 
 export default function CreatePage(props) {
-  const classes = useStyles()
   const [departments, setDepartments] = useState([])
   const [values, setValues] = useState(formDefaults())
 
@@ -114,9 +100,14 @@ export default function CreatePage(props) {
     handleClear()
   }
 
+  const Form = styled('form')(() => ({
+    display: 'flex',
+    flexWrap: 'wrap',
+  }))
+
   return (
     <Container>
-      <form autoComplete="off" className={classes.container} noValidate>
+      <Form autoComplete="off" noValidate>
         <CourseNameInput onChange={handleChange('name')} value={values.name} />
         <CourseDepartmentInput
           departments={departments}
@@ -139,30 +130,30 @@ export default function CreatePage(props) {
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <Button
-              className={classes.dense}
               color="primary"
               fullWidth
               onClick={handleSave}
               type="button"
               variant="contained"
+              sx={{ m: 2 }}
             >
               Save
             </Button>
           </Grid>
           <Grid item xs={6}>
             <Button
-              className={classes.dense}
               color="secondary"
               fullWidth
               onClick={handleClear}
               type="button"
               variant="contained"
+              sx={{ m: 2 }}
             >
               Clear
             </Button>
           </Grid>
         </Grid>
-      </form>
+      </Form>
     </Container>
   )
 }

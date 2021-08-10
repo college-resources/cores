@@ -41,13 +41,13 @@ export default function RegisterPage(props) {
   const Form = styled('form')(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: theme.palette.text.permanentLight,
+        borderColor: theme.palette.common.white,
       },
     },
     '& label.Mui-focused': {
       color: theme.palette.mode === 'dark' && theme.palette.common.white,
     },
-    marginTop: theme.spacing(3),
+    mt: 3,
   }))
 
   return (
@@ -55,9 +55,9 @@ export default function RegisterPage(props) {
       <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
         <Avatar
           sx={{
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.mode === 'dark' && theme.palette.text.permanentLight,
-            margin: theme.spacing(2),
+            bgcolor: theme.palette.primary.main,
+            color: theme.palette.mode === 'dark' && theme.palette.common.white,
+            m: 2,
           }}
         >
           <LockOutlinedIcon />
@@ -66,7 +66,7 @@ export default function RegisterPage(props) {
           Sign up
         </Typography>
         <Form noValidate>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} mt={0}>
             <Grid item sm={6} xs={12}>
               <TextField
                 autoComplete="given-name"
@@ -126,13 +126,8 @@ export default function RegisterPage(props) {
             color="primary"
             fullWidth
             onClick={handleRegister}
-            type="button"
             variant="contained"
             sx={{
-              '&:hover': {
-                backgroundColor: theme.palette.primary.dark,
-              },
-              backgroundColor: theme.palette.primary.light,
               margin: theme.spacing(3, 0, 2),
             }}
           >

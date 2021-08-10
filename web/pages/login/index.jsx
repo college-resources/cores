@@ -47,13 +47,13 @@ export default function LoginPage(props) {
   const Form = styled('form')(({ theme }) => ({
     '& .MuiOutlinedInput-root': {
       '&.Mui-focused fieldset': {
-        borderColor: theme.palette.text.permanentLight,
+        borderColor: theme.palette.grey['300'],
       },
     },
     '& label.Mui-focused': {
-      color: theme.palette.mode === 'dark' && theme.palette.common.white,
+      color: theme.palette.mode === 'dark' && theme.palette.grey['300'],
     },
-    marginTop: theme.spacing(1),
+    mt: 1,
   }))
 
   return (
@@ -61,9 +61,9 @@ export default function LoginPage(props) {
       <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
         <Avatar
           sx={{
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.mode === 'dark' && theme.palette.text.permanentLight,
-            margin: theme.spacing(2),
+            bgcolor: theme.palette.primary.main,
+            color: theme.palette.mode === 'dark' && theme.palette.grey['300'],
+            m: 2,
           }}
         >
           <LockOutlinedIcon />
@@ -110,16 +110,11 @@ export default function LoginPage(props) {
             <strong>Wrong email or password.</strong>
           </Box>
           <Button
-            color="primary"
             fullWidth
             type="submit"
             variant="contained"
             sx={{
-              margin: theme.spacing(2, 0, 2),
-              backgroundColor: theme.palette.primary.light,
-              '&:hover': {
-                backgroundColor: theme.palette.primary.dark,
-              },
+              m: theme.spacing(2, 0),
             }}
           >
             Sign In
@@ -140,16 +135,14 @@ export default function LoginPage(props) {
             </Grid>
           </Grid>
           <Button
-            color="primary"
             fullWidth
             onClick={handleLoginWithGoogle}
-            type="button"
             variant="contained"
             sx={{
-              margin: theme.spacing(2, 0, 2),
-              backgroundColor: theme.palette.mode === 'light' ? red[600] : red[700],
+              m: theme.spacing(2, 0),
+              bgcolor: theme.palette.mode === 'light' ? red[600] : red[700],
               '&:hover': {
-                backgroundColor: theme.palette.mode === 'light' ? red[800] : red[900],
+                bgcolor: theme.palette.mode === 'light' ? red[800] : red[900],
               },
             }}
           >

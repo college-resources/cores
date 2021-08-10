@@ -9,32 +9,11 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { dynamicSortMultiple } from 'scripts/sorting'
 import gql from 'scripts/graphql'
-import { makeStyles } from '@material-ui/core/styles'
 import InstituteDepartmentGroup from 'components/institute-department-group'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectDepartmentIndex } from 'redux/departmentSlice'
 import { getCourses, selectCourses } from 'redux/courseSlice'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    minWidth: 100,
-    marginTop: 16,
-  },
-  title: {
-    fontSize: 14,
-  },
-  autocomplete: {
-    marginTop: '0.75rem',
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: 'gray',
-      },
-    },
-    '& label.Mui-focused': {
-      color: theme.palette.mode === 'dark' && theme.palette.common.white,
-    },
-  },
-}))
+import { useTheme } from '@material-ui/core/styles'
 
 const notesHandler = (courseId) =>
   Promise.resolve(
@@ -56,14 +35,12 @@ const notesHandler = (courseId) =>
         }
       }
     `).then(
-      (data) =>
-        data.lessonNotes &&
-        data.lessonNotes.sort(dynamicSortMultiple('-date', 'title')),
+      (data) => data.lessonNotes && data.lessonNotes.sort(dynamicSortMultiple('-date', 'title')),
     ),
   )
 
 export default function NotesPage(props) {
-  const classes = useStyles()
+  const theme = useTheme()
   const dispatch = useDispatch()
   const selectedDepartmentIndex = useSelector(selectDepartmentIndex)
   const courses = useSelector(selectCourses)
@@ -128,7 +105,6 @@ export default function NotesPage(props) {
       {selectedDepartmentIndex >= 0 && (
         <>
           <Autocomplete
-            className={classes.autocomplete}
             fullWidth
             getOptionLabel={getOptionLabelHandler}
             groupBy={groupByHandler}
@@ -137,22 +113,23 @@ export default function NotesPage(props) {
             options={courses}
             renderInput={renderInputHandler}
             value={selectedLesson}
+            sx={{
+              marginTop: '0.75rem',
+              '& .MuiOutlinedInput-root': {
+                '&.Mui-focused fieldset': {
+                  borderColor: 'gray',
+                },
+              },
+              '& label.Mui-focused': {
+                color: theme.palette.mode === 'dark' && theme.palette.common.white,
+              },
+            }}
           />
           {notes?.map((note, index) => (
-            <Card className={classes.root} key={`hypertext-${index}`}>
-              <CardActionArea
-                onClick={handleClickOpen(
-                  note.title,
-                  note.hypertexts,
-                  note.images,
-                )}
-              >
+            <Card key={`hypertext-${index}`} sx={{ minWidth: 100, mt: 2 }}>
+              <CardActionArea onClick={handleClickOpen(note.title, note.hypertexts, note.images)}>
                 <CardContent>
-                  <Typography
-                    className={classes.title}
-                    color="textSecondary"
-                    gutterBottom
-                  >
+                  <Typography color="textSecondary" gutterBottom sx={{ fontSize: 14 }}>
                     {note.date}
                   </Typography>
                   <Typography component="p" variant="body2">
