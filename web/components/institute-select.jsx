@@ -9,7 +9,6 @@ import {
 } from 'redux/instituteSlice'
 import { useEffect } from 'react'
 import Box from '@material-ui/core/Box'
-import Hidden from '@material-ui/core/Hidden'
 import { styled } from '@material-ui/core/styles'
 
 export default function InstituteSelect() {
@@ -53,14 +52,14 @@ export default function InstituteSelect() {
       >
         {institutes.map((institute, index) => (
           <MenuItem key={institute._id} value={index}>
-            <Hidden xsDown>
+            <Box xsDown sx={{ display: { xs: 'none', sm: 'block' } }}>
               <b>{institute.acronym}</b>&nbsp;-&nbsp;{institute.name}
-            </Hidden>
-            <Hidden smUp>
+            </Box>
+            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
               <b>{institute.acronym}</b>
               &nbsp;
               <span style={{ fontSize: '0.8rem' }}>{institute.name}</span>
-            </Hidden>
+            </Box>
           </MenuItem>
         ))}
       </Dropdown>

@@ -1,7 +1,6 @@
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
-import Hidden from '@material-ui/core/Hidden'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { Favorite, FavoriteBorder } from '@material-ui/icons'
@@ -112,7 +111,7 @@ export default function Feeding() {
             ))
           )}
         </Dropdown>
-        <Hidden smUp>
+        <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <FormControlLabel
             control={
               <Checkbox
@@ -124,12 +123,11 @@ export default function Feeding() {
               />
             }
             label=""
-            sx={{ marginLeft: '4px', marginRight: 0, marginTop: '8px' }}
+            sx={{ ml: 1, mr: 0, mt: 3 }}
           />
-        </Hidden>
-        <Hidden xsDown>
+        </Box>
+        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           <FormControlLabel
-            style={{ marginLeft: '4px', marginRight: 0, marginTop: '8px' }}
             control={
               <Checkbox
                 checked={displayAsFavorite}
@@ -140,8 +138,9 @@ export default function Feeding() {
               />
             }
             label="Favourite"
+            sx={{ ml: 1, mr: 0, mt: 3 }}
           />
-        </Hidden>
+        </Box>
       </Box>
       {selectedFeedingIndex < 0 ? (
         <Box mt={5}>

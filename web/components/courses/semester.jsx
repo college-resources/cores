@@ -11,10 +11,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import { lightBlue } from '@material-ui/core/colors'
-
-const StyledTableCell = styled(TableCell)(() => ({
-  borderBottom: 0,
-}))
+import { TableContainer } from '@material-ui/core'
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(even)': {
@@ -22,6 +19,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
   '&:nth-of-type(odd)': {
     bgcolor: theme.palette.mode === 'dark' ? '' : lightBlue[100],
+  },
+  '&:last-child td, &:last-child th': {
+    borderBottom: 0,
   },
 }))
 
@@ -39,7 +39,11 @@ export default function Semester(props) {
     >
       <AccordionSummary
         aria-controls="panel-content"
-        expandIcon={<ExpandMoreIcon />}
+        expandIcon={
+          <ExpandMoreIcon
+            sx={{ color: theme.palette.mode === 'dark' ? '' : theme.palette.common.white }}
+          />
+        }
         id="panel1d-header"
       >
         <Typography>
@@ -47,56 +51,54 @@ export default function Semester(props) {
           {semester}
         </Typography>
       </AccordionSummary>
-      <AccordionDetails sx={{ overflowX: 'auto', overflowY: 'hidden', padding: 0 }}>
-        <Table>
-          <TableHead component={Paper} elevation={2}>
-            <TableRow>
-              <StyledTableCell align="center" rowSpan="2" sx={{ minWidth: '16px', width: '32px' }}>
-                Κωδ.
-              </StyledTableCell>
-              <StyledTableCell rowSpan="2" style={{ minWidth: '10rem' }}>
-                Τίτλος
-              </StyledTableCell>
-              <StyledTableCell align="center" rowSpan="2" sx={{ minWidth: '16px', width: '32px' }}>
-                Είδος
-              </StyledTableCell>
-              <StyledTableCell
-                align="center"
-                colSpan="2"
-                sx={{
-                  borderBottom: '1px solid rgba(224, 224, 224, 1)',
-                  minWidth: '16px',
-                  width: '32px',
-                }}
-              >
-                Ώρες
-              </StyledTableCell>
-              <StyledTableCell
-                align="center"
-                rowSpan="2"
-                style={{ minWidth: '16px', width: '32px' }}
-              >
-                Π.Μ.
-              </StyledTableCell>
-            </TableRow>
-            <TableRow>
-              <StyledTableCell align="center">Θ</StyledTableCell>
-              <StyledTableCell align="center">Ε</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row._id}>
-                <StyledTableCell align="center">{row.lessonCode}</StyledTableCell>
-                <StyledTableCell align="left">{row.name}</StyledTableCell>
-                <StyledTableCell align="center">{row.type}</StyledTableCell>
-                <StyledTableCell align="center">{row.hoursTheory}</StyledTableCell>
-                <StyledTableCell align="center">{row.hoursLab}</StyledTableCell>
-                <StyledTableCell align="center">{row.credit}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
+      <AccordionDetails sx={{ overflowX: 'auto', overflowY: 'hidden', p: 0 }}>
+        <TableContainer component={Paper} elevation={2} sx={{ borderRadius: ' 0 0 4px 4px' }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell align="center" rowSpan="2" sx={{ minWidth: '16px', width: '32px' }}>
+                  Κωδ.
+                </TableCell>
+                <TableCell rowSpan="2" style={{ minWidth: '10rem' }}>
+                  Τίτλος
+                </TableCell>
+                <TableCell align="center" rowSpan="2" sx={{ minWidth: '16px', width: '32px' }}>
+                  Είδος
+                </TableCell>
+                <TableCell
+                  align="center"
+                  colSpan="2"
+                  sx={{
+                    borderBottom: '1px solid rgba(224, 224, 224, 1)',
+                    minWidth: '16px',
+                    width: '32px',
+                  }}
+                >
+                  Ώρες
+                </TableCell>
+                <TableCell align="center" rowSpan="2" style={{ minWidth: '16px', width: '32px' }}>
+                  Π.Μ.
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell align="center">Θ</TableCell>
+                <TableCell align="center">Ε</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <StyledTableRow key={row._id}>
+                  <TableCell align="center">{row.lessonCode}</TableCell>
+                  <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="center">{row.type}</TableCell>
+                  <TableCell align="center">{row.hoursTheory}</TableCell>
+                  <TableCell align="center">{row.hoursLab}</TableCell>
+                  <TableCell align="center">{row.credit}</TableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </AccordionDetails>
     </Accordion>
   )

@@ -14,7 +14,7 @@ export default function CoursesModule() {
   const theme = useTheme()
 
   return (
-    <Paper sx={{ padding: theme.spacing(2) }}>
+    <Paper sx={{ p: 2 }}>
       <Box alignItems="center" display="flex" justifyContent="center" mb={2.5} mt={0.5}>
         <BookIcon />
         <Box mx={1}>
