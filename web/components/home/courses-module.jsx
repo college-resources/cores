@@ -8,7 +8,6 @@ import { styled, useTheme } from '@material-ui/core/styles'
 
 const LessonGrid = styled(Grid)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
-  color: theme.palette.text.normal,
 }))
 
 export default function CoursesModule() {
