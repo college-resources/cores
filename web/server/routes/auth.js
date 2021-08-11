@@ -6,6 +6,7 @@ const util = require('util')
 const querystring = require('querystring')
 const { check, validationResult } = require('express-validator')
 
+const keycloak = require('../services/keycloak')
 const { ErrorHandler } = require('../lib/error')
 
 router.use(bodyParser.urlencoded({ extended: false }))
@@ -32,15 +33,13 @@ router.post(
     }
 
     try {
-      await req.auth0.managementClient.createUser({
-        connection: 'Username-Password-Authentication',
+      const user = await keycloak.createUser({
         email: req.body.email,
-        // TODO: Implement Email verification support
-        email_verified: true,
-        family_name: req.body.family_name,
-        given_name: req.body.given_name,
-        password: req.body.password
+        firstName: req.body.given_name,
+        lastName: req.body.family_name
       })
+
+      await keycloak.resetPassword(user.id, req.body.password)
 
       next()
     } catch (err) {
@@ -76,7 +75,7 @@ router.post(
         }
 
         if (!user) {
-          next(new ErrorHandler(401, 'Not authenticated'))
+          return next(new ErrorHandler(401, 'Not authenticated'))
         }
 
         req.login(user, (err) => {
