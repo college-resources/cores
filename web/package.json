@@ -34,8 +34,8 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/eslint-parser": "^7.14.7",
+    "@babel/core": "^7.15.0",
+    "@babel/eslint-parser": "^7.15.0",
     "@babel/eslint-plugin": "^7.14.5",
     "@emotion/cache": "^11.4.0",
     "@emotion/react": "^11.4.1",
