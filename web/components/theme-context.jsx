@@ -74,8 +74,6 @@ export function ThemeProvider(props) {
         },
         palette: {
           primary: {
-            dark: indigo[800],
-            level3: indigo[500],
             light: indigo[600],
             main: indigo[700],
           },
