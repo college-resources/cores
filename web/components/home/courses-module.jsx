@@ -4,15 +4,13 @@ import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import { Typography } from '@material-ui/core'
-import { styled, useTheme } from '@material-ui/core/styles'
+import { styled } from '@material-ui/core/styles'
 
 const LessonGrid = styled(Grid)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
 }))
 
 export default function CoursesModule() {
-  const theme = useTheme()
-
   return (
     <Paper sx={{ p: 2 }}>
       <Box alignItems="center" display="flex" justifyContent="center" mb={2.5} mt={0.5}>

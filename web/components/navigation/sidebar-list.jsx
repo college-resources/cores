@@ -14,6 +14,7 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import SignoutIcon from '@material-ui/icons/ExitToApp'
 import { selectVersion } from '../../redux/envSlice'
 import { Typography } from '@material-ui/core'
+import ChangeThemeMode from './change-theme-mode'
 
 export default function SidebarList() {
   const dispatch = useDispatch()
@@ -78,6 +79,8 @@ export default function SidebarList() {
           </List>
         </>
       )}
+      <Divider />
+      <ChangeThemeMode />
       <List style={{ position: 'absolute', bottom: 0 }}>
         <ListItem>
           <Typography>{`Version: ${version}`}</Typography>

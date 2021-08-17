@@ -4,8 +4,6 @@ import { useTheme } from '@material-ui/core/styles'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import AppBar from '@material-ui/core/AppBar'
 import Avatar from '@material-ui/core/Avatar'
-import Brightness4Icon from '@material-ui/icons/Brightness4'
-import Brightness7Icon from '@material-ui/icons/Brightness7'
 import Button from '@material-ui/core/Button'
 import ButtonLink from 'components/button-link'
 import IconButton from '@material-ui/core/IconButton'
@@ -14,7 +12,6 @@ import PermanentBar from './permanent-bar'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { useChangeTheme } from 'components/theme-context'
 import { useSelector } from 'react-redux'
 import SidebarList from './sidebar-list'
 
@@ -29,11 +26,6 @@ export default function Navbar(props) {
   const currentAuthStatus = useSelector(selectStatus)
 
   const theme = useTheme()
-  const changeTheme = useChangeTheme()
-  function handleTogglePaletteMode() {
-    const paletteMode = theme.palette.mode === 'light' ? 'dark' : 'light'
-    changeTheme({ paletteMode })
-  }
 
   const toggleDrawer = (open) => (event) => {
     if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -89,9 +81,6 @@ export default function Navbar(props) {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <IconButton color="inherit" onClick={handleTogglePaletteMode}>
-            {theme.palette.mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
-          </IconButton>
           {currentAuthStatus === authStatus.AUTHENTICATED ? (
             <IconButton
               aria-controls="menu-appbar"

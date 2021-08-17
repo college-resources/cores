@@ -39,7 +39,6 @@ export function ThemeProvider(props) {
       case 'CHANGE':
         return {
           ...state,
-          paletteColors: action.payload.paletteColors || state.paletteColors,
           paletteMode: action.payload.paletteMode || state.paletteMode,
         }
       default:
@@ -49,17 +48,15 @@ export function ThemeProvider(props) {
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const preferredMode = prefersDarkMode ? 'dark' : 'light'
-  const { paletteColors, paletteMode = preferredMode } = themeOptions
+  const { paletteMode = preferredMode } = themeOptions
 
   useEffect(() => {
     if (process.browser) {
-      const nextPaletteColors = JSON.parse(getCookie('paletteColors') || 'null')
       const nextPaletteMode = getCookie('paletteMode') || preferredMode
 
       dispatch({
         type: 'CHANGE',
         payload: {
-          paletteColors: nextPaletteColors,
           paletteMode: nextPaletteMode,
         },
       })
@@ -73,18 +70,14 @@ export function ThemeProvider(props) {
           color: paletteMode === 'light' ? '#000' : '#fff',
         },
         palette: {
+          mode: paletteMode,
           primary: {
             light: indigo[600],
             main: indigo[700],
           },
           secondary: {
-            main: indigo[700],
+            main: '#59309f',
           },
-          text: {
-            normal: paletteMode === 'light' ? 'black' : '#dcddde',
-          },
-          mode: paletteMode,
-          ...paletteColors,
         },
         typography: {
           fontFamily: [
@@ -113,7 +106,7 @@ export function ThemeProvider(props) {
     )
 
     return nextTheme
-  }, [paletteColors, paletteMode])
+  }, [paletteMode])
 
   useEffect(() => {
     // Expose the theme as a global variable so people can play with it.
@@ -134,9 +127,6 @@ ThemeProvider.propTypes = {
   children: PropTypes.node,
 }
 
-/**
- * @returns {(nextOptions: Partial<typeof themeInitialOptions>) => void}
- */
 export function useChangeTheme() {
   const dispatch = useContext(DispatchContext)
   return useCallback((options) => dispatch({ payload: options, type: 'CHANGE' }), [dispatch])
