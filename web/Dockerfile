@@ -7,5 +7,6 @@ CMD [ "npm", "start" ]
 RUN npm ci
 
 COPY . .
+VOLUME [ "/app/common" ]
 RUN npm run lint
 RUN npm run build
