@@ -3,33 +3,35 @@ const { Issuer } = require('openid-client')
 
 const { handleError } = require('../lib/error')
 
-const client = (async () => {
-  // TODO HARDCODED BS
-  const keycloakIssuer = await Issuer.discover('http://172.18.0.3:8080/auth/realms/cores')
+const { keycloak } = require('../../common/globals.json')
 
-  // TODO HARDCODED BS
+const client = (async () => {
+  const issuerUrl = new URL(keycloak.HOST)
+  issuerUrl.pathname = `/auth/realms/${keycloak.REALM}`
+  const keycloakIssuer = await Issuer.discover(issuerUrl.href)
+
   return new keycloakIssuer.Client({
-    client_id: 'web-local',
-    client_secret: '7df5fa09-5388-4833-a9fd-05485e7cd926',
+    client_id: keycloak.CLIENT_LOGIN,
+    client_secret: keycloak.CLIENT_LOGIN_SECRET,
     token_endpoint_auth_method: 'client_secret_post'
   })
 })()
 
-// TODO HARDCODED BS
+const adminUrl = new URL(keycloak.HOST)
+adminUrl.pathname = '/auth'
 const kcAdminClient = new KcAdminClient({
-  baseUrl: 'http://172.18.0.3:8080/auth',
-  realmName: 'cores'
+  baseUrl: adminUrl.href,
+  realmName: keycloak.REALM
 })
 
-// TODO HARDCODED BS
-const credentials = {
+const adminCredentials = {
   grantType: 'client_credentials',
-  clientId: 'realm-management',
-  clientSecret: 'd98ba078-0f68-4888-ab67-452efcafec98'
+  clientId: keycloak.CLIENT_MGMT,
+  clientSecret: keycloak.CLIENT_MGMT_SECRET
 }
 
-kcAdminClient.auth(credentials)
-setInterval(() => kcAdminClient.auth(credentials).catch(handleError), 58 * 1000)
+kcAdminClient.auth(adminCredentials)
+setInterval(() => kcAdminClient.auth(adminCredentials).catch(handleError), 58 * 1000)
 
 module.exports.grant = async (username, password) => (await client).grant({
   grant_type: 'password',
@@ -42,7 +44,7 @@ module.exports.userInfo = async (token) => (await client).userinfo(token)
 module.exports.createUser = async (
   { email, firstName, lastName }
 ) => (await kcAdminClient).users.create({
-  username: email, email, firstName, lastName,enabled: true
+  username: email, email, firstName, lastName, enabled: true
 })
 
 module.exports.resetPassword = async (userId, password) => (await kcAdminClient).users.resetPassword({
