@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./copy-common')
 
 if (!process.env.NODE_ENV) {
   if (process.argv.includes('--development') || process.argv.includes('--dev')) {
