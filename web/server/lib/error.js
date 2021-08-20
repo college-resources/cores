@@ -12,9 +12,10 @@ const handleError = (err, res) => {
   let { statusCode, message } = err
   statusCode = statusCode || 500
   message = message || 'Internal server error'
+  message = err?.response?.data?.errorMessage || message
 
   const { stack } = new Error()
-  const filtered = stack//.split('\n').filter($ => !/node_modules/.test($)).join('\n')
+  const filtered = stack.split('\n').filter($ => !/node_modules/.test($)).join('\n')
   console.log(message, filtered)
 
   // Used for Passport errors
