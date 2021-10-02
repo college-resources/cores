@@ -1,7 +1,6 @@
 const express = require('express')
 const next = require('next')
 
-const auth0 = require('./middleware/auth0')
 const session = require('./middleware/session')
 const passport = require('./middleware/passport')
 
@@ -19,7 +18,6 @@ const handle = app.getRequestHandler()
 server.set('trust proxy', 'loopback')
 
 server.use(express.static('public'))
-server.use(auth0)
 server.use(session)
 server.use(passport)
 

@@ -1,0 +1,10 @@
+{
+  "keycloak": {
+    "HOST": "http://keycloak:8080/",
+    "REALM": "cores",
+    "CLIENT_LOGIN": "account",
+    "CLIENT_LOGIN_SECRET": "account-secret",
+    "CLIENT_MGMT": "admin-cli",
+    "CLIENT_MGMT_SECRET": "cli-secret"
+  }
+}

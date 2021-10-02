@@ -6,6 +6,7 @@ const util = require('util')
 const querystring = require('querystring')
 const { check, validationResult } = require('express-validator')
 
+const keycloak = require('../services/keycloak')
 const { ErrorHandler } = require('../lib/error')
 
 router.use(bodyParser.urlencoded({ extended: false }))
@@ -13,26 +14,8 @@ router.use(bodyParser.json())
 
 router.get(
   '/login',
-  passport.authenticate('auth0', {
-    audience: process.env.AUTH0_AUDIENCE,
-    scope: process.env.AUTH0_SCOPE
-  }),
-  (req, res) => {
-    res.redirect('/')
-  }
-)
-
-router.get(
-  '/login/:connection',
-  (req, res, next) =>
-    passport.authenticate('auth0', {
-      audience: process.env.AUTH0_AUDIENCE,
-      connection: req.params.connection,
-      scope: process.env.AUTH0_SCOPE
-    })(req, res, next),
-  (req, res) => {
-    res.redirect('/')
-  }
+  passport.authenticate('keycloak', { scope: 'openid email profile' }),
+  (req, res) => res.redirect('/')
 )
 
 router.post(
@@ -50,15 +33,13 @@ router.post(
     }
 
     try {
-      await req.auth0.managementClient.createUser({
-        connection: 'Username-Password-Authentication',
+      const user = await keycloak.createUser({
         email: req.body.email,
-        // TODO: Implement Email verification support
-        email_verified: true,
-        family_name: req.body.family_name,
-        given_name: req.body.given_name,
-        password: req.body.password
+        firstName: req.body.given_name,
+        lastName: req.body.family_name
       })
+
+      await keycloak.resetPassword(user.id, req.body.password)
 
       next()
     } catch (err) {
@@ -75,7 +56,10 @@ router.post(
 
 router.post(
   '/login',
-  [check('email').isEmail(), check('password').isLength(8)],
+  [
+    check('email').isEmail(),
+    check('password').isLength(8)
+  ],
   (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -91,7 +75,7 @@ router.post(
         }
 
         if (!user) {
-          next(new ErrorHandler(401, 'Not authenticated'))
+          return next(new ErrorHandler(401, 'Not authenticated'))
         }
 
         req.login(user, (err) => {
@@ -106,9 +90,9 @@ router.post(
   }
 )
 
-router.get('/callback', (req, res, next) => {
+router.get('/callback/keycloak', (req, res, next) => {
   passport.authenticate(
-    'auth0',
+    'keycloak',
     // eslint-disable-next-line no-unused-vars
     (authenticateError, user, info) => {
       if (authenticateError) return next(authenticateError)
