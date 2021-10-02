@@ -1,14 +1,14 @@
 const session = require('express-session')
-const {FirestoreStore} = require('@google-cloud/connect-firestore')
-const {Firestore} = require('@google-cloud/firestore')
+const redis = require('redis')
+
+let RedisStore = require('connect-redis')(session)
+
+const { redis: redisGlobals } = require('../../common/globals.json')
+
+let redisClient = redis.createClient({ url: redisGlobals.HOST })
 
 const sess = {
-  store: process.env.NODE_ENV === 'production'
-    ? new FirestoreStore({
-      dataset: new Firestore(),
-      kind: process.env.SESSION_COLLECTION || 'local-sessions',
-    })
-    : undefined,
+  store: new RedisStore({ client: redisClient }),
   cookie: {},
   resave: false,
   saveUninitialized: true,

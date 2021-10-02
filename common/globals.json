@@ -6,5 +6,8 @@
     "CLIENT_LOGIN_SECRET": "account-secret",
     "CLIENT_MGMT": "admin-cli",
     "CLIENT_MGMT_SECRET": "cli-secret"
+  },
+  "redis": {
+    "HOST": "redis://redis:6379"
   }
 }
