@@ -4,19 +4,12 @@ import MinusIcon from '@material-ui/icons/Remove'
 import PlusIcon from '@material-ui/icons/Add'
 import TextField from '@material-ui/core/TextField'
 
-export default function SemesterInput(props) {
+export default function CourseCreditInput(props) {
   const { onChange, value } = props
 
   const handleChange = (num) => () => {
     const newValue = value + num
-
-    if (newValue < 1) {
-      onChange(1)
-    } else if (newValue > 10) {
-      onChange(10)
-    } else {
-      onChange(newValue)
-    }
+    onChange(newValue)
   }
 
   return (
@@ -25,11 +18,11 @@ export default function SemesterInput(props) {
         <Box flexGrow={1}>
           <TextField
             InputProps={{
-              readOnly: true
+              readOnly: true,
             }}
             fullWidth
-            id="semester-input"
-            label="Semester"
+            id="credit-input"
+            label="Credit"
             margin="normal"
             required
             type="number"
@@ -38,20 +31,12 @@ export default function SemesterInput(props) {
           />
         </Box>
         <Box ml={1} my="auto">
-          <Fab
-            aria-label="decrement semester"
-            color="secondary"
-            onClick={handleChange(-1)}
-          >
+          <Fab aria-label="decrement credit" color="secondary" onClick={handleChange(-1)}>
             <MinusIcon />
           </Fab>
         </Box>
         <Box ml={1} my="auto">
-          <Fab
-            aria-label="increment semester"
-            color="primary"
-            onClick={handleChange(1)}
-          >
+          <Fab aria-label="increment credit" color="primary" onClick={handleChange(1)}>
             <PlusIcon />
           </Fab>
         </Box>

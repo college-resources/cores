@@ -15,11 +15,11 @@ router.get(
   '/login',
   passport.authenticate('auth0', {
     audience: process.env.AUTH0_AUDIENCE,
-    scope: process.env.AUTH0_SCOPE
+    scope: process.env.AUTH0_SCOPE,
   }),
   (req, res) => {
     res.redirect('/')
-  }
+  },
 )
 
 router.get(
@@ -28,11 +28,11 @@ router.get(
     passport.authenticate('auth0', {
       audience: process.env.AUTH0_AUDIENCE,
       connection: req.params.connection,
-      scope: process.env.AUTH0_SCOPE
+      scope: process.env.AUTH0_SCOPE,
     })(req, res, next),
   (req, res) => {
     res.redirect('/')
-  }
+  },
 )
 
 router.post(
@@ -41,7 +41,7 @@ router.post(
     check('email').isEmail(),
     check('given_name').isLength(1),
     check('family_name').isLength(1),
-    check('password').isLength(8)
+    check('password').isLength(8),
   ],
   async (req, res, next) => {
     const errors = validationResult(req)
@@ -57,7 +57,7 @@ router.post(
         email_verified: true,
         family_name: req.body.family_name,
         given_name: req.body.given_name,
-        password: req.body.password
+        password: req.body.password,
       })
 
       next()
@@ -66,11 +66,11 @@ router.post(
     }
   },
   passport.authenticate('password', {
-    failureRedirect: '/login'
+    failureRedirect: '/login',
   }),
   (req, res) => {
     res.json(req.user.profile)
-  }
+  },
 )
 
 router.post(
@@ -101,9 +101,9 @@ router.post(
 
           res.json(req.user.profile)
         })
-      }
+      },
     )(req, res, next)
-  }
+  },
 )
 
 router.get('/callback', (req, res, next) => {
@@ -119,7 +119,7 @@ router.get('/callback', (req, res, next) => {
         delete req.session.returnTo
         res.redirect(returnTo || '/')
       })
-    }
+    },
   )(req, res, next)
 })
 
@@ -129,17 +129,17 @@ router.get('/logout', (req, res) => {
   let returnTo = `${req.protocol}://${req.hostname}`
   const port = parseInt(
     req.get('X-Forwarded-Port') || req.connection.localPort,
-    10
+    10,
   )
   if (port && port !== 80 && port !== 443) {
     returnTo += `:${port}`
   }
   const logoutURL = new URL(
-    util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN)
+    util.format('https://%s/v2/logout', process.env.AUTH0_DOMAIN),
   )
   logoutURL.search = querystring.stringify({
     client_id: process.env.AUTH0_CLIENT_ID,
-    returnTo
+    returnTo,
   })
 
   res.redirect(logoutURL)

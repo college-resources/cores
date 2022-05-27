@@ -16,8 +16,8 @@ const store = configureStore({
     env: envReducer,
     feeding: feedingReducer,
     institute: institutesSlice,
-    preferences: preferencesReducer
-  }
+    preferences: preferencesReducer,
+  },
 })
 
 export default store

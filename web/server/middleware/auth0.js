@@ -3,7 +3,7 @@ const auth0 = require('auth0')
 const authenticationClient = new auth0.AuthenticationClient({
   clientId: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  domain: process.env.AUTH0_DOMAIN
+  domain: process.env.AUTH0_DOMAIN,
 })
 
 const managementClient = new auth0.ManagementClient({
@@ -12,8 +12,8 @@ const managementClient = new auth0.ManagementClient({
   domain: process.env.AUTH0_DOMAIN,
   tokenProvider: {
     cacheTTLInSeconds: 10,
-    enableCache: true
-  }
+    enableCache: true,
+  },
 })
 
 const syncProfileWithApi = async (info) => {
@@ -26,12 +26,12 @@ const syncProfileWithApi = async (info) => {
         user {
           _id
         }
-      }`
+      }`,
     }),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    method: 'POST'
+    method: 'POST',
   })
     .then((res) => {
       if (res.ok) {
@@ -57,12 +57,12 @@ const syncProfileWithApi = async (info) => {
           }) {
             _id
           }
-        }`
+        }`,
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      method: 'POST'
+      method: 'POST',
     })
       .then((res) => {
         if (res.ok) {
@@ -85,7 +85,7 @@ module.exports = (req, res, next) => {
   req.auth0 = {
     authenticationClient,
     managementClient,
-    syncProfileWithApi
+    syncProfileWithApi,
   }
 
   next()

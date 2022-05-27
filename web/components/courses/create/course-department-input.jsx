@@ -1,24 +1,11 @@
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles({
-  menu: {
-    width: 200
-  }
-})
-
-export default function DepartmentInput(props) {
-  const classes = useStyles()
+export default function CourseDepartmentInput(props) {
   const { departments, onChange, value } = props
 
   return (
     <TextField
-      SelectProps={{
-        MenuProps: {
-          className: classes.menu
-        }
-      }}
       fullWidth
       id="department-input"
       label="Department"
@@ -30,7 +17,7 @@ export default function DepartmentInput(props) {
       variant="outlined"
     >
       {departments.map((department) => (
-        <MenuItem key={department._id} value={department._id}>
+        <MenuItem key={department._id} value={department._id} sx={{ width: 200 }}>
           {department.name}
         </MenuItem>
       ))}

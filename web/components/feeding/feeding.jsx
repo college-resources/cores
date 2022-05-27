@@ -1,53 +1,26 @@
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import MenuItem from '@material-ui/core/MenuItem'
-import Hidden from '@material-ui/core/Hidden'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { Favorite, FavoriteBorder } from '@material-ui/icons'
 import Typography from '@material-ui/core/Typography'
-import Menu from './Menu'
+import Menu from './menu'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  getFeeding,
-  selectFeedingIndex,
-  selectFeedings,
-  updateFeeding
-} from 'redux/feedingSlice'
+import { getFeeding, selectFeedingIndex, selectFeedings, updateFeeding } from 'redux/feedingSlice'
 import {
   getPreferences,
   PREFERENCE_FEEDING,
   selectPreferences,
-  updatePreference
+  updatePreference,
 } from 'redux/preferencesSlice'
 import { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import { pink } from '@material-ui/core/colors'
 import { selectInstituteIndex } from 'redux/instituteSlice'
 import isEmpty from 'lodash/isEmpty'
-
-const useStyles = makeStyles((theme) => ({
-  checked: {
-    color: pink['A400']
-  },
-  container: {
-    display: 'flex'
-  },
-  textField: {
-    flexGrow: 1,
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: 'gray'
-      }
-    },
-    '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white
-    }
-  }
-}))
+import { styled } from '@material-ui/core/styles'
 
 export default function Feeding() {
-  const classes = useStyles()
   const dispatch = useDispatch()
   const feedings = useSelector(selectFeedings)
   const selectedFeedingIndex = useSelector(selectFeedingIndex)
@@ -88,8 +61,8 @@ export default function Feeding() {
       dispatch(
         updatePreference({
           preference: PREFERENCE_FEEDING,
-          value: isFavorite() ? null : feedings[selectedFeedingIndex]
-        })
+          value: isFavorite() ? null : feedings[selectedFeedingIndex],
+        }),
       )
     } else {
       alert('Choose a feeding first') // TODO: Beautify - Translate
@@ -97,21 +70,29 @@ export default function Feeding() {
   }
 
   function isFavorite() {
-    return (
-      !!favoriteFeeding &&
-      favoriteFeeding._id === feedings[selectedFeedingIndex]?._id
-    )
+    return !!favoriteFeeding && favoriteFeeding._id === feedings[selectedFeedingIndex]?._id
   }
 
   function handleFeedingChange(event) {
     dispatch(updateFeeding(event.target.value))
   }
 
+  const Dropdown = styled(TextField)(({ theme }) => ({
+    flexGrow: 1,
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: 'gray',
+      },
+    },
+    '& label.Mui-focused': {
+      color: theme.palette.mode === 'dark' && theme.palette.common.white,
+    },
+  }))
+
   return (
     <>
-      <Box className={classes.container}>
-        <TextField
-          className={classes.textField}
+      <Box display="flex">
+        <Dropdown
           id="restaurant"
           label="Restaurant"
           margin="normal"
@@ -129,37 +110,37 @@ export default function Feeding() {
               </MenuItem>
             ))
           )}
-        </TextField>
-        <Hidden smUp>
+        </Dropdown>
+        <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
           <FormControlLabel
-            style={{ marginLeft: '4px', marginRight: 0, marginTop: '8px' }}
             control={
               <Checkbox
                 checked={displayAsFavorite}
                 onChange={handleFavoriteChange}
                 icon={<FavoriteBorder />}
-                checkedIcon={<Favorite className={classes.checked} />}
+                checkedIcon={<Favorite sx={{ color: pink['A400'] }} />}
                 name="checkedH"
               />
             }
             label=""
+            sx={{ ml: 1, mr: 0, mt: 3 }}
           />
-        </Hidden>
-        <Hidden xsDown>
+        </Box>
+        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           <FormControlLabel
-            style={{ marginLeft: '4px', marginRight: 0, marginTop: '8px' }}
             control={
               <Checkbox
                 checked={displayAsFavorite}
                 onChange={handleFavoriteChange}
                 icon={<FavoriteBorder />}
-                checkedIcon={<Favorite className={classes.checked} />}
+                checkedIcon={<Favorite sx={{ color: pink['A400'] }} />}
                 name="checkedH"
               />
             }
             label="Favourite"
+            sx={{ ml: 1, mr: 0, mt: 3 }}
           />
-        </Hidden>
+        </Box>
       </Box>
       {selectedFeedingIndex < 0 ? (
         <Box mt={5}>

@@ -1,13 +1,13 @@
 import TextField from '@material-ui/core/TextField'
 
-export default function TypeInput(props) {
+export default function CourseCodeInput(props) {
   const { onChange, value } = props
 
   return (
     <TextField
       fullWidth
-      id="type-input"
-      label="Type"
+      id="code-input"
+      label="Code"
       margin="normal"
       onChange={onChange}
       required

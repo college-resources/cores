@@ -5,48 +5,33 @@ import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/core/styles'
+import { styled } from '@material-ui/core/styles'
 import { selectUser } from 'redux/authSlice'
 import { useSelector } from 'react-redux'
 
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    height: '5rem',
-    margin: 'auto',
-    marginBottom: '1rem',
-    width: '5rem'
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center'
-  },
-  root: {
-    flexGrow: 1
-  }
-}))
-
 export default function ProfilePage(props) {
   const user = useSelector(selectUser)
-  const classes = useStyles()
 
   useEffect(() => {
     props.updateTitle('Profile')
   }, [])
 
+  const Card = styled(Paper)(({ theme }) => ({ padding: theme.spacing(2), textAlign: 'center' }))
+
   return (
     <Container>
       <Box mt={2}>
-        <Grid container justify="center" spacing={3}>
+        <Grid container justifyContent="center" spacing={3}>
           <Grid item md={6} xs={12}>
-            <Paper className={classes.paper}>
+            <Card>
               <Avatar
                 alt="account picture"
-                className={classes.avatar}
                 src={user.picture}
+                sx={{ height: '5rem', margin: 'auto', marginBottom: '1rem', width: '5rem' }}
               />
               <TextField
                 InputProps={{
-                  readOnly: true
+                  readOnly: true,
                 }}
                 defaultValue={user.given_name}
                 fullWidth
@@ -56,7 +41,7 @@ export default function ProfilePage(props) {
               />
               <TextField
                 InputProps={{
-                  readOnly: true
+                  readOnly: true,
                 }}
                 defaultValue={user.family_name}
                 fullWidth
@@ -64,23 +49,23 @@ export default function ProfilePage(props) {
                 margin="normal"
                 variant="outlined"
               />
-            </Paper>
+            </Card>
           </Grid>
           <Grid item md={6} xs={12}>
-            <Paper className={classes.paper}>
+            <Card>
               <Box fontSize="h6.fontSize" fontWeight="fontWeightMedium">
                 Email Address
               </Box>
               <TextField
                 InputProps={{
-                  readOnly: true
+                  readOnly: true,
                 }}
                 defaultValue={user.email}
                 fullWidth
                 margin="normal"
                 variant="outlined"
               />
-            </Paper>
+            </Card>
           </Grid>
         </Grid>
       </Box>

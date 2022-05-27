@@ -4,7 +4,7 @@ module.exports = new LocalStrategy(
   {
     passReqToCallback: true,
     passwordField: 'password',
-    usernameField: 'email'
+    usernameField: 'email',
   },
   async (req, username, password, done) => {
     try {
@@ -13,7 +13,7 @@ module.exports = new LocalStrategy(
         password,
         realm: process.env.AUTH0_REALM,
         scope: process.env.AUTH0_SCOPE,
-        username
+        username,
       })
 
       const accessToken = userData.access_token
@@ -27,7 +27,7 @@ module.exports = new LocalStrategy(
       const info = {
         accessToken,
         profile,
-        refreshToken
+        refreshToken,
       }
 
       await req.auth0.syncProfileWithApi(info)
@@ -36,5 +36,5 @@ module.exports = new LocalStrategy(
     } catch (err) {
       done(err)
     }
-  }
+  },
 )

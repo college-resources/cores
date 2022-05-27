@@ -12,13 +12,13 @@ const slice = createSlice({
   reducers: {
     updateDepartments: (state, action) => ({
       ...defaults(),
-      departments: action.payload
+      departments: action.payload,
     }),
     updateDepartmentIndex: (state, action) => ({
       ...state,
-      departmentIndex: action.payload
-    })
-  }
+      departmentIndex: action.payload,
+    }),
+  },
 })
 
 export default slice.reducer
@@ -46,7 +46,7 @@ export function getDepartments() {
             name
           }
         }
-      `).then((data) => data.departments?.sort(dynamicSort('name')))
+      `).then((data) => data.departments?.sort(dynamicSort('name'))),
     ).then((gqlData) => {
       if (gqlData) {
         dispatch(slice.actions.updateDepartments(gqlData))

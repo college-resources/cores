@@ -10,9 +10,9 @@ export default function gql(query, variables) {
     fetch('/api/graphql', {
       body: JSON.stringify(body),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      method: 'POST'
+      method: 'POST',
     })
       .then((res) => res.json())
       .then((json) => {

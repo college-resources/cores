@@ -6,7 +6,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemLink from './ListItemLink'
+import ListItemLink from './list-item-link'
 import ListItemText from '@material-ui/core/ListItemText'
 import NotesIcon from '@material-ui/icons/Notes'
 import RestaurantIcon from '@material-ui/icons/Restaurant'
@@ -14,8 +14,9 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import SignoutIcon from '@material-ui/icons/ExitToApp'
 import { selectVersion } from '../../redux/envSlice'
 import { Typography } from '@material-ui/core'
+import ChangeThemeMode from './change-theme-mode'
 
-export default function SideBarList() {
+export default function SidebarList() {
   const dispatch = useDispatch()
   const currentAuthStatus = useSelector(selectStatus)
   const version = useSelector(selectVersion)
@@ -79,7 +80,8 @@ export default function SideBarList() {
         </>
       )}
       <Divider />
-      <List style={{ marginTop: 'auto' }}>
+      <ChangeThemeMode />
+      <List style={{ position: 'absolute', bottom: 0 }}>
         <ListItem>
           <Typography>{`Version: ${version}`}</Typography>
         </ListItem>

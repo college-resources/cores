@@ -1,36 +1,17 @@
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   getInstitutes,
   selectInstituteIndex,
   selectInstitutes,
-  updateInstituteIndex
+  updateInstituteIndex,
 } from 'redux/instituteSlice'
 import { useEffect } from 'react'
 import Box from '@material-ui/core/Box'
-import Hidden from '@material-ui/core/Hidden'
-
-const useStyles = makeStyles((theme) => ({
-  textField: {
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: 0
-    },
-    flexGrow: 1,
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: 'gray'
-      }
-    },
-    '& label.Mui-focused': {
-      color: theme.palette.type === 'dark' && theme.palette.common.white
-    }
-  }
-}))
+import { styled } from '@material-ui/core/styles'
 
 export default function InstituteSelect() {
-  const classes = useStyles()
   const dispatch = useDispatch()
   const institutes = useSelector(selectInstitutes)
   const selectedInstituteIndex = useSelector(selectInstituteIndex)
@@ -43,10 +24,24 @@ export default function InstituteSelect() {
     dispatch(updateInstituteIndex(event.target.value))
   }
 
+  const Dropdown = styled(TextField)(({ theme }) => ({
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 0,
+    },
+    flexGrow: 1,
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: 'gray',
+      },
+    },
+    '& label.Mui-focused': {
+      color: theme.palette.mode === 'dark' && theme.palette.common.white,
+    },
+  }))
+
   return (
     <Box display="flex">
-      <TextField
-        className={classes.textField}
+      <Dropdown
         id="institute"
         label="Institute"
         margin="normal"
@@ -57,17 +52,17 @@ export default function InstituteSelect() {
       >
         {institutes.map((institute, index) => (
           <MenuItem key={institute._id} value={index}>
-            <Hidden xsDown>
+            <Box xsDown sx={{ display: { xs: 'none', sm: 'block' } }}>
               <b>{institute.acronym}</b>&nbsp;-&nbsp;{institute.name}
-            </Hidden>
-            <Hidden smUp>
+            </Box>
+            <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
               <b>{institute.acronym}</b>
               &nbsp;
               <span style={{ fontSize: '0.8rem' }}>{institute.name}</span>
-            </Hidden>
+            </Box>
           </MenuItem>
         ))}
-      </TextField>
+      </Dropdown>
     </Box>
   )
 }

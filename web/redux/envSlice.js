@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 const slice = createSlice({
   name: 'env',
   initialState: {
-    version: null
+    version: null,
   },
   reducers: {
     updateVersion: (state, action) => ({
       ...state,
-      version: action.payload
-    })
-  }
+      version: action.payload,
+    }),
+  },
 })
 
 export default slice.reducer

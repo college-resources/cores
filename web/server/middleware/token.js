@@ -7,7 +7,7 @@ const init = (req) => {
     cache: true,
     jwksRequestsPerMinute: 5,
     jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
-    rateLimit: true
+    rateLimit: true,
   })
 
   const getSecret = (kid) =>
@@ -29,7 +29,7 @@ const init = (req) => {
     const options = {
       algorithms: ['RS256'],
       audience: process.env.AUTH0_AUDIENCE,
-      issuer: `https://${process.env.AUTH0_DOMAIN}/`
+      issuer: `https://${process.env.AUTH0_DOMAIN}/`,
     }
 
     try {
@@ -39,7 +39,7 @@ const init = (req) => {
         await req.auth0.authenticationClient
           .refreshToken({
             client_secret: process.env.AUTH0_CLIENT_SECRET,
-            refresh_token: req.user.refreshToken
+            refresh_token: req.user.refreshToken,
           })
           .then(({ access_token: accessToken }) => {
             req.user.accessToken = accessToken

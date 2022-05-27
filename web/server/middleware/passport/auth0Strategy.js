@@ -7,17 +7,17 @@ module.exports = new Auth0Strategy(
     clientID: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
     domain: process.env.AUTH0_DOMAIN,
-    passReqToCallback: true
+    passReqToCallback: true,
   },
   async (req, accessToken, refreshToken, _, profile, done) => {
     const info = {
       accessToken,
       profile: profile && profile._json,
-      refreshToken
+      refreshToken,
     }
 
     await req.auth0.syncProfileWithApi(info)
 
     return done(null, info)
-  }
+  },
 )

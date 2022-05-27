@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography'
 import { useSelector } from 'react-redux'
 import { selectInstituteIndex } from 'redux/instituteSlice'
 import { selectDepartmentIndex } from 'redux/departmentSlice'
-import InstituteSelect from './InstituteSelect'
-import DepartmentSelect from './DepartmentSelect'
+import InstituteSelect from './institute-select'
+import DepartmentSelect from './department-select'
 
 export default function InstituteDepartmentGroup() {
   const selectedInstituteIndex = useSelector(selectInstituteIndex)
@@ -31,9 +31,7 @@ export default function InstituteDepartmentGroup() {
       </Grid>
       {selectedInstituteIndex >= 0 && selectedDepartmentIndex < 0 && (
         <Box mt={4}>
-          <Typography align="center">
-            Select a department from the dropdown to see more.
-          </Typography>
+          <Typography align="center">Select a department from the dropdown to see more.</Typography>
         </Box>
       )}
     </>

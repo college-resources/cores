@@ -12,13 +12,13 @@ const slice = createSlice({
   reducers: {
     updateInstitutes: (state, action) => ({
       ...defaults(),
-      institutes: action.payload
+      institutes: action.payload,
     }),
     updateInstituteIndex: (state, action) => ({
       ...state,
-      instituteIndex: action.payload
-    })
-  }
+      instituteIndex: action.payload,
+    }),
+  },
 })
 
 export default slice.reducer
@@ -37,7 +37,7 @@ export function getInstitutes() {
             acronym
           }
         }
-      `).then((data) => data.institutes?.sort(dynamicSort('acronym')))
+      `).then((data) => data.institutes?.sort(dynamicSort('acronym'))),
     ).then((gqlData) => {
       if (gqlData) {
         dispatch(slice.actions.updateInstitutes(gqlData))

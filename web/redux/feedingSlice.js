@@ -11,17 +11,17 @@ const slice = createSlice({
   reducers: {
     updateFeeding: (state, action) => ({
       ...defaults(),
-      feedings: action.payload
+      feedings: action.payload,
     }),
     updateSelectedFeedingIndex: (state, action) => ({
       ...state,
-      feedingIndex: action.payload
+      feedingIndex: action.payload,
     }),
     updateSelectedWeekIndex: (state, action) => ({
       ...state,
-      weekIndex: action.payload
-    })
-  }
+      weekIndex: action.payload,
+    }),
+  },
 })
 
 export default slice.reducer
@@ -59,7 +59,7 @@ export function getFeeding() {
             _id
           }
         }
-      `).then((data) => data.feedings)
+      `).then((data) => data.feedings),
     ).then((gqlFeeding) => {
       if (gqlFeeding) {
         dispatch(slice.actions.updateFeeding(gqlFeeding))
